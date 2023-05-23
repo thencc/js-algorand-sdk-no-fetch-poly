@@ -3,7 +3,7 @@
     "lib": ["es2021"],
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es2020",
+    "target": "es2021",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,

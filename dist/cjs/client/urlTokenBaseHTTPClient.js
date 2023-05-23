@@ -2,10 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.URLTokenBaseHTTPClient = void 0;
 const buffer_1 = require("buffer");
-const node_fetch_1 = require("node-fetch");
-if (!fetch) {
-    globalThis.fetch = node_fetch_1.fetch;
-}
+// if (!fetch) {
+//   globalThis.fetch = nfetch;
+// }
 class URLTokenBaseHTTPError extends Error {
     constructor(message, response) {
         super(message);

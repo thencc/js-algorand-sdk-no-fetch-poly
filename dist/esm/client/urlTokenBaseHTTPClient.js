@@ -125,6 +125,8 @@ export class URLTokenBaseHTTPClient {
             ...this.defaultHeaders,
             ...requestHeaders,
         };
+        console.log('posting...');
+        console.log(fetch);
         const res = await fetch(this.getURL(relativePath, query), {
             method: 'POST',
             // mode: 'cors',

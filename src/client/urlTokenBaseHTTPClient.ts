@@ -190,6 +190,9 @@ export class URLTokenBaseHTTPClient implements BaseHTTPClient {
       ...requestHeaders,
     };
 
+    console.log('posting...');
+    console.log(fetch);
+
     const res = await fetch(this.getURL(relativePath, query), {
       method: 'POST',
       // mode: 'cors',

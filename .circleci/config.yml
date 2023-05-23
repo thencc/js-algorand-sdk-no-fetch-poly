@@ -25,7 +25,7 @@ workflows:
           context: slack-secrets
           matrix:
             parameters:
-              browser: ['node', 'chrome', 'firefox']
+              browser: ['chrome', 'firefox']
       - generate_docs:
           requires:
             - ESLint

@@ -113,6 +113,8 @@ class URLTokenBaseHTTPClient {
             ...this.defaultHeaders,
             ...requestHeaders,
         };
+        console.log('fetching...');
+        console.log(fetch);
         const res = await fetch(this.getURL(relativePath, query), {
             // mode: 'cors',
             headers,

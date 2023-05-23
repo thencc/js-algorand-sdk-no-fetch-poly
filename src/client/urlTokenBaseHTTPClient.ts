@@ -1,5 +1,4 @@
 import { Buffer } from 'buffer';
-import nfetch from 'node-fetch';
 
 import {
   BaseHTTPClient,
@@ -22,10 +21,6 @@ export interface KMDTokenHeader {
 
 export interface CustomTokenHeader {
   [headerName: string]: string;
-}
-
-if (globalThis.fetch) {
-  globalThis.fetch = nfetch;
 }
 
 class URLTokenBaseHTTPError extends Error implements BaseHTTPClientError {

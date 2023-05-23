@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Buffer } from 'buffer';
 import * as txnBuilder from './transaction';
 interface EncodedTxGroup {

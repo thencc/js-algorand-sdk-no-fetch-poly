@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.URLTokenBaseHTTPClient = void 0;
 const buffer_1 = require("buffer");
-const node_fetch_1 = require("node-fetch");
 class URLTokenBaseHTTPError extends Error {
     constructor(message, response) {
         super(message);
@@ -110,7 +109,7 @@ class URLTokenBaseHTTPClient {
             ...this.defaultHeaders,
             ...requestHeaders,
         };
-        const res = await (0, node_fetch_1.fetch)(this.getURL(relativePath, query), {
+        const res = await fetch(this.getURL(relativePath, query), {
             mode: 'cors',
             headers,
         });
@@ -123,7 +122,7 @@ class URLTokenBaseHTTPClient {
             ...this.defaultHeaders,
             ...requestHeaders,
         };
-        const res = await (0, node_fetch_1.fetch)(this.getURL(relativePath, query), {
+        const res = await fetch(this.getURL(relativePath, query), {
             method: 'POST',
             mode: 'cors',
             body: data,
@@ -138,7 +137,7 @@ class URLTokenBaseHTTPClient {
             ...this.defaultHeaders,
             ...requestHeaders,
         };
-        const res = await (0, node_fetch_1.fetch)(this.getURL(relativePath, query), {
+        const res = await fetch(this.getURL(relativePath, query), {
             method: 'DELETE',
             mode: 'cors',
             body: data,

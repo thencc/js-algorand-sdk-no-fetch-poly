@@ -1,5 +1,4 @@
 import { Buffer } from 'buffer';
-import { fetch } from 'node-fetch';
 class URLTokenBaseHTTPError extends Error {
     constructor(message, response) {
         super(message);

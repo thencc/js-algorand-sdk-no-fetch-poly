@@ -42,7 +42,7 @@ export default class Compile extends JSONRequest {
     const txHeaders = setHeaders(headers);
     const res = await this.c.post(
       this.path(),
-      Buffer.from(this.source),
+      Buffer.from(this.source as any),
       txHeaders,
       this.query
     );

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Buffer } from 'buffer';
 import ServiceClient from './v2/serviceClient';
 import * as txn from '../transaction';

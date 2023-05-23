@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Buffer } from 'buffer';
 import { OnApplicationComplete, TransactionParams, TransactionType, BoxReference } from './types/transactions/base';
 import AnyTransaction, { EncodedTransaction, EncodedMultisig, EncodedLogicSig } from './types/transactions';

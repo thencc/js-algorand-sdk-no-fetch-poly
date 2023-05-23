@@ -298,7 +298,7 @@ export default class Kmd extends ServiceClient {
       wallet_handle_token: walletHandle,
       wallet_password: walletPassword,
       transaction: Buffer.from(tx.toByte()).toString('base64'),
-      public_key: Buffer.from(publicKey).toString('base64'),
+      public_key: Buffer.from(publicKey as any).toString('base64'),
     };
     const res = await this.c.post('/v1/transaction/sign', req);
 
@@ -392,7 +392,7 @@ export default class Kmd extends ServiceClient {
     const req = {
       wallet_handle_token: walletHandle,
       transaction: Buffer.from(tx.toByte()).toString('base64'),
-      public_key: Buffer.from(pk).toString('base64'),
+      public_key: Buffer.from(pk as any).toString('base64'),
       partial_multisig: partial,
       wallet_password: pw,
     };

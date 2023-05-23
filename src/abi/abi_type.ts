@@ -380,7 +380,7 @@ export class ABIStringType extends ABIType {
     if (typeof value !== 'string' && !(value instanceof Uint8Array)) {
       throw new Error(`Cannot encode value as string: ${value}`);
     }
-    const encodedBytes = Buffer.from(value);
+    const encodedBytes = Buffer.from(value as any);
     const encodedLength = bigIntToBytes(
       encodedBytes.length,
       LENGTH_ENCODE_BYTE_SIZE

@@ -1,5 +1,6 @@
 import { Buffer } from 'buffer';
-// import { fetch as nfetch, Response, Headers } from 'node-fetch';
+import nfetch from 'node-fetch';
+
 import {
   BaseHTTPClient,
   BaseHTTPClientResponse,
@@ -23,9 +24,9 @@ export interface CustomTokenHeader {
   [headerName: string]: string;
 }
 
-// if (!fetch) {
-//   globalThis.fetch = nfetch;
-// }
+if (globalThis.fetch) {
+  globalThis.fetch = nfetch;
+}
 
 class URLTokenBaseHTTPError extends Error implements BaseHTTPClientError {
   constructor(message: string, public response: BaseHTTPClientResponse) {

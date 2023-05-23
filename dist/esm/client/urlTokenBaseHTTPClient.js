@@ -1,7 +1,8 @@
 import { Buffer } from 'buffer';
-// if (!fetch) {
-//   globalThis.fetch = nfetch;
-// }
+import nfetch from 'node-fetch';
+if (globalThis.fetch) {
+    globalThis.fetch = nfetch;
+}
 class URLTokenBaseHTTPError extends Error {
     constructor(message, response) {
         super(message);

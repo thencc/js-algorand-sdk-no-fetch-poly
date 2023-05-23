@@ -1,10 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.URLTokenBaseHTTPClient = void 0;
 const buffer_1 = require("buffer");
-// if (!fetch) {
-//   globalThis.fetch = nfetch;
-// }
+const node_fetch_1 = __importDefault(require("node-fetch"));
+if (globalThis.fetch) {
+    globalThis.fetch = node_fetch_1.default;
+}
 class URLTokenBaseHTTPError extends Error {
     constructor(message, response) {
         super(message);

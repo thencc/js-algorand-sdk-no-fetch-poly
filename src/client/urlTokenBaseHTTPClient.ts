@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-import { fetch, Response, Headers } from 'cross-fetch';
+// import { fetch, Response, Headers } from 'cross-fetch';
 import {
   BaseHTTPClient,
   BaseHTTPClientResponse,

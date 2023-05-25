@@ -1,11 +1,20 @@
 import { Buffer } from 'buffer';
-// import { fetch, Response, Headers } from 'cross-fetch';
+
 import {
   BaseHTTPClient,
   BaseHTTPClientResponse,
   BaseHTTPClientError,
   Query,
 } from './baseHTTPClient';
+// import { fetch, Response, Headers } from 'cross-fetch';
+// import { fetch as cfetch } from 'cross-fetch';
+if (!global.fetch) {
+  // const cfe =
+  import('cross-fetch').then((c) => {
+    global.fetch = c.fetch;
+  });
+  // global.fetch = cfetch;
+}
 
 export interface AlgodTokenHeader {
   'X-Algo-API-Token': string;

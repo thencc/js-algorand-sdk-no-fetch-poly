@@ -32,9 +32,15 @@ const utils = __importStar(require("./utils/utils"));
  * Bid enables construction of Algorand Auctions Bids
  * */
 class Bid {
+    name = 'Bid';
+    tag = buffer_1.Buffer.from([97, 66]); // "aB"
+    bidderKey;
+    bidAmount;
+    bidID;
+    auctionKey;
+    auctionID;
+    maxPrice;
     constructor({ bidderKey, bidAmount, bidID, auctionKey, auctionID, maxPrice, }) {
-        this.name = 'Bid';
-        this.tag = buffer_1.Buffer.from([97, 66]); // "aB"
         const decodedBidderKey = address.decodeAddress(bidderKey);
         const decodedAuctionKey = address.decodeAddress(auctionKey);
         if (!Number.isSafeInteger(bidAmount) || bidAmount < 0)

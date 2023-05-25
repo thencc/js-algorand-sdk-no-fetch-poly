@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupAccountByID extends JSONRequest {
+    account;
     /**
      * Returns information about the given account.
      *

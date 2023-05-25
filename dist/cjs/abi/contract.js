@@ -3,6 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ABIContract = void 0;
 const method_1 = require("./method");
 class ABIContract {
+    name;
+    description;
+    networks;
+    methods;
     constructor(params) {
         if (typeof params.name !== 'string' ||
             !Array.isArray(params.methods) ||

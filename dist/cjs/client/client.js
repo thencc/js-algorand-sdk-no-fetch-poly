@@ -73,6 +73,7 @@ function getAcceptFormat(query) {
  * decoding the JSON outputs.
  */
 class HTTPClient {
+    bc;
     constructor(bcOrTokenHeader, baseServer, port, defaultHeaders = {}) {
         if (baseServer !== undefined) {
             this.bc = new urlTokenBaseHTTPClient_1.URLTokenBaseHTTPClient(bcOrTokenHeader, baseServer, port, defaultHeaders);

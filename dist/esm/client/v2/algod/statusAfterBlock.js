@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class StatusAfterBlock extends JSONRequest {
+    round;
     constructor(c, intDecoding, round) {
         super(c, intDecoding);
         this.round = round;

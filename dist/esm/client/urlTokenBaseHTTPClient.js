@@ -1,5 +1,18 @@
 import { Buffer } from 'buffer';
+// import { fetch, Response, Headers } from 'cross-fetch';
+// import { fetch as cfetch } from 'cross-fetch';
+console.log('global.fetch', global.fetch);
+if (!global.fetch) {
+    // const cfe =
+    import('cross-fetch').then((c) => {
+        console.log('cf import', c);
+        console.log('c.fetch', c.fetch);
+        global.fetch = c.fetch;
+    });
+    // global.fetch = cfetch;
+}
 class URLTokenBaseHTTPError extends Error {
+    response;
     constructor(message, response) {
         super(message);
         this.response = response;
@@ -13,6 +26,9 @@ class URLTokenBaseHTTPError extends Error {
  * This is the default implementation of BaseHTTPClient.
  */
 export class URLTokenBaseHTTPClient {
+    defaultHeaders;
+    baseURL;
+    tokenHeader;
     constructor(tokenHeader, baseServer, port, defaultHeaders = {}) {
         this.defaultHeaders = defaultHeaders;
         // Append a trailing slash so we can use relative paths. Without the trailing

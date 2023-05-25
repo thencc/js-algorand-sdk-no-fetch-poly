@@ -1,5 +1,9 @@
 import { ABIMethod, getMethodByName } from './method';
 export class ABIContract {
+    name;
+    description;
+    networks;
+    methods;
     constructor(params) {
         if (typeof params.name !== 'string' ||
             !Array.isArray(params.methods) ||

@@ -39,6 +39,10 @@ function parseMethodSignature(signature) {
     };
 }
 class ABIMethod {
+    name;
+    description;
+    args;
+    returns;
     constructor(params) {
         if (typeof params.name !== 'string' ||
             typeof params.returns !== 'object' ||

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 class LookupAssetByID extends jsonrequest_1.default {
+    index;
     /**
      * Returns asset information of the queried asset.
      *

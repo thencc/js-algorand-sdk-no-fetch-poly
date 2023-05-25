@@ -16,6 +16,7 @@ export function setHeaders(headers = {}) {
  * Executes compile
  */
 export default class Compile extends JSONRequest {
+    source;
     constructor(c, source) {
         super(c);
         this.source = source;

@@ -17,6 +17,7 @@ import { Box } from './models/types';
  * @category GET
  */
 export default class GetApplicationBoxByName extends JSONRequest {
+    index;
     constructor(c, intDecoding, index, name) {
         super(c, intDecoding);
         this.index = index;

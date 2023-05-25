@@ -9,9 +9,10 @@ const ALGORAND_MAX_TX_GROUP_SIZE = 16;
  * Aux class for group id calculation of a group of transactions
  */
 export class TxGroup {
+    name = 'Transaction group';
+    tag = Buffer.from('TG');
+    txGroupHashes;
     constructor(hashes) {
-        this.name = 'Transaction group';
-        this.tag = Buffer.from('TG');
         if (hashes.length > ALGORAND_MAX_TX_GROUP_SIZE) {
             const errorMsg = `${hashes.length.toString()} transactions grouped together but max group size is ${ALGORAND_MAX_TX_GROUP_SIZE.toString()}`;
             throw Error(errorMsg);

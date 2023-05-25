@@ -23,6 +23,7 @@ exports.setHeaders = setHeaders;
  * Executes disassemble
  */
 class Disassemble extends jsonrequest_1.default {
+    source;
     constructor(c, source) {
         super(c);
         this.source = source;

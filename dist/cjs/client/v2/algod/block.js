@@ -32,6 +32,7 @@ const jsonrequest_1 = __importDefault(require("../jsonrequest"));
  * block gets the block info for the given round. this call may block
  */
 class Block extends jsonrequest_1.default {
+    round;
     constructor(c, roundNumber) {
         super(c);
         if (!Number.isInteger(roundNumber))

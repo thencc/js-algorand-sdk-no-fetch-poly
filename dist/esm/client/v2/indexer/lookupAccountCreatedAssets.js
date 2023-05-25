@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupAccountCreatedAssets extends JSONRequest {
+    account;
     /**
      * Returns asset information created by the given account.
      *

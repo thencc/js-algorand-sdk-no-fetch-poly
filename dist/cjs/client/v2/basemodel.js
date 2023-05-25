@@ -42,6 +42,8 @@ function _get_obj_for_encoding(val, binary) {
     return targetPropValue;
 }
 class BaseModel {
+    /* eslint-disable no-underscore-dangle,camelcase */
+    attribute_map;
     /**
      * Get an object ready for encoding to either JSON or msgpack.
      * @param binary - Use true to indicate that the encoding can handle raw binary objects

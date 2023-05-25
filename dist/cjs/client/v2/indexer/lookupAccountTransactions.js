@@ -19,6 +19,7 @@ function base64StringFunnel(data) {
 }
 exports.base64StringFunnel = base64StringFunnel;
 class LookupAccountTransactions extends jsonrequest_1.default {
+    account;
     /**
      * Returns transactions relating to the given account.
      *

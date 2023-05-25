@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupApplications extends JSONRequest {
+    index;
     /**
      * Returns information about the passed application.
      *

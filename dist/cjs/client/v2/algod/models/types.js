@@ -18,6 +18,126 @@ const basemodel_1 = __importDefault(require("../../basemodel"));
  */
 class Account extends basemodel_1.default {
     /**
+     * the account public key
+     */
+    address;
+    /**
+     * (algo) total number of MicroAlgos in the account
+     */
+    amount;
+    /**
+     * specifies the amount of MicroAlgos in the account, without the pending rewards.
+     */
+    amountWithoutPendingRewards;
+    /**
+     * MicroAlgo balance required by the account.
+     * The requirement grows based on asset and application usage.
+     */
+    minBalance;
+    /**
+     * amount of MicroAlgos of pending rewards in this account.
+     */
+    pendingRewards;
+    /**
+     * (ern) total rewards of MicroAlgos the account has received, including pending
+     * rewards.
+     */
+    rewards;
+    /**
+     * The round for which this information is relevant.
+     */
+    round;
+    /**
+     * (onl) delegation status of the account's MicroAlgos
+     * * Offline - indicates that the associated account is delegated.
+     * * Online - indicates that the associated account used as part of the delegation
+     * pool.
+     * * NotParticipating - indicates that the associated account is neither a
+     * delegator nor a delegate.
+     */
+    status;
+    /**
+     * The count of all applications that have been opted in, equivalent to the count
+     * of application local data (AppLocalState objects) stored in this account.
+     */
+    totalAppsOptedIn;
+    /**
+     * The count of all assets that have been opted in, equivalent to the count of
+     * AssetHolding objects held by this account.
+     */
+    totalAssetsOptedIn;
+    /**
+     * The count of all apps (AppParams objects) created by this account.
+     */
+    totalCreatedApps;
+    /**
+     * The count of all assets (AssetParams objects) created by this account.
+     */
+    totalCreatedAssets;
+    /**
+     * (appl) applications local data stored in this account.
+     * Note the raw object uses `map[int] -> AppLocalState` for this type.
+     */
+    appsLocalState;
+    /**
+     * (teap) the sum of all extra application program pages for this account.
+     */
+    appsTotalExtraPages;
+    /**
+     * (tsch) stores the sum of all of the local schemas and global schemas in this
+     * account.
+     * Note: the raw account uses `StateSchema` for this type.
+     */
+    appsTotalSchema;
+    /**
+     * (asset) assets held by this account.
+     * Note the raw object uses `map[int] -> AssetHolding` for this type.
+     */
+    assets;
+    /**
+     * (spend) the address against which signing should be checked. If empty, the
+     * address of the current account is used. This field can be updated in any
+     * transaction by setting the RekeyTo field.
+     */
+    authAddr;
+    /**
+     * (appp) parameters of applications created by this account including app global
+     * data.
+     * Note: the raw account uses `map[int] -> AppParams` for this type.
+     */
+    createdApps;
+    /**
+     * (apar) parameters of assets created by this account.
+     * Note: the raw account uses `map[int] -> Asset` for this type.
+     */
+    createdAssets;
+    /**
+     * AccountParticipation describes the parameters used by this account in consensus
+     * protocol.
+     */
+    participation;
+    /**
+     * (ebase) used as part of the rewards computation. Only applicable to accounts
+     * which are participating.
+     */
+    rewardBase;
+    /**
+     * Indicates what type of signature is used by this account, must be one of:
+     * * sig
+     * * msig
+     * * lsig
+     */
+    sigType;
+    /**
+     * (tbxb) The total number of bytes used by this account's app's box keys and
+     * values.
+     */
+    totalBoxBytes;
+    /**
+     * (tbx) The number of existing boxes created by this account's app.
+     */
+    totalBoxes;
+    /**
      * Creates a new `Account` object.
      * @param address - the account public key
      * @param amount - (algo) total number of MicroAlgos in the account
@@ -198,6 +318,21 @@ exports.Account = Account;
  */
 class AccountApplicationResponse extends basemodel_1.default {
     /**
+     * The round for which this information is relevant.
+     */
+    round;
+    /**
+     * (appl) the application local data stored in this account.
+     * The raw account uses `AppLocalState` for this type.
+     */
+    appLocalState;
+    /**
+     * (appp) parameters of the application created by this account including app
+     * global data.
+     * The raw account uses `AppParams` for this type.
+     */
+    createdApp;
+    /**
      * Creates a new `AccountApplicationResponse` object.
      * @param round - The round for which this information is relevant.
      * @param appLocalState - (appl) the application local data stored in this account.
@@ -242,6 +377,20 @@ exports.AccountApplicationResponse = AccountApplicationResponse;
  */
 class AccountAssetResponse extends basemodel_1.default {
     /**
+     * The round for which this information is relevant.
+     */
+    round;
+    /**
+     * (asset) Details about the asset held by this account.
+     * The raw account uses `AssetHolding` for this type.
+     */
+    assetHolding;
+    /**
+     * (apar) parameters of the asset created by this account.
+     * The raw account uses `AssetParams` for this type.
+     */
+    createdAsset;
+    /**
      * Creates a new `AccountAssetResponse` object.
      * @param round - The round for which this information is relevant.
      * @param assetHolding - (asset) Details about the asset held by this account.
@@ -283,6 +432,31 @@ exports.AccountAssetResponse = AccountAssetResponse;
  * protocol.
  */
 class AccountParticipation extends basemodel_1.default {
+    /**
+     * (sel) Selection public key (if any) currently registered for this round.
+     */
+    selectionParticipationKey;
+    /**
+     * (voteFst) First round for which this participation is valid.
+     */
+    voteFirstValid;
+    /**
+     * (voteKD) Number of subkeys in each batch of participation keys.
+     */
+    voteKeyDilution;
+    /**
+     * (voteLst) Last round for which this participation is valid.
+     */
+    voteLastValid;
+    /**
+     * (vote) root participation public key (if any) currently registered for this
+     * round.
+     */
+    voteParticipationKey;
+    /**
+     * (stprf) Root of the state proof key (if any)
+     */
+    stateProofKey;
     /**
      * Creates a new `AccountParticipation` object.
      * @param selectionParticipationKey - (sel) Selection public key (if any) currently registered for this round.
@@ -348,6 +522,11 @@ exports.AccountParticipation = AccountParticipation;
  * Application state delta.
  */
 class AccountStateDelta extends basemodel_1.default {
+    address;
+    /**
+     * Application state delta.
+     */
+    delta;
     /**
      * Creates a new `AccountStateDelta` object.
      * @param address -
@@ -382,6 +561,14 @@ exports.AccountStateDelta = AccountStateDelta;
  */
 class Application extends basemodel_1.default {
     /**
+     * (appidx) application index.
+     */
+    id;
+    /**
+     * (appparams) application parameters.
+     */
+    params;
+    /**
      * Creates a new `Application` object.
      * @param id - (appidx) application index.
      * @param params - (appparams) application parameters.
@@ -414,6 +601,18 @@ exports.Application = Application;
  * Stores local state associated with an application.
  */
 class ApplicationLocalState extends basemodel_1.default {
+    /**
+     * The application which this local state is for.
+     */
+    id;
+    /**
+     * (hsch) schema.
+     */
+    schema;
+    /**
+     * (tkv) storage.
+     */
+    keyValue;
     /**
      * Creates a new `ApplicationLocalState` object.
      * @param id - The application which this local state is for.
@@ -453,6 +652,35 @@ exports.ApplicationLocalState = ApplicationLocalState;
  * Stores the global information associated with an application.
  */
 class ApplicationParams extends basemodel_1.default {
+    /**
+     * (approv) approval program.
+     */
+    approvalProgram;
+    /**
+     * (clearp) approval program.
+     */
+    clearStateProgram;
+    /**
+     * The address that created this application. This is the address where the
+     * parameters and global state for this application can be found.
+     */
+    creator;
+    /**
+     * (epp) the amount of extra program pages available to this app.
+     */
+    extraProgramPages;
+    /**
+     * (gs) global state
+     */
+    globalState;
+    /**
+     * (gsch) global schema
+     */
+    globalStateSchema;
+    /**
+     * (lsch) local schema
+     */
+    localStateSchema;
     /**
      * Creates a new `ApplicationParams` object.
      * @param approvalProgram - (approv) approval program.
@@ -522,6 +750,14 @@ exports.ApplicationParams = ApplicationParams;
  */
 class ApplicationStateSchema extends basemodel_1.default {
     /**
+     * (nui) num of uints.
+     */
+    numUint;
+    /**
+     * (nbs) num of byte slices.
+     */
+    numByteSlice;
+    /**
      * Creates a new `ApplicationStateSchema` object.
      * @param numUint - (nui) num of uints.
      * @param numByteSlice - (nbs) num of byte slices.
@@ -554,6 +790,17 @@ exports.ApplicationStateSchema = ApplicationStateSchema;
  * Specifies both the unique identifier and the parameters for an asset
  */
 class Asset extends basemodel_1.default {
+    /**
+     * unique asset identifier
+     */
+    index;
+    /**
+     * AssetParams specifies the parameters for an asset.
+     * (apar) when part of an AssetConfig transaction.
+     * Definition:
+     * data/transactions/asset.go : AssetParams
+     */
+    params;
     /**
      * Creates a new `Asset` object.
      * @param index - unique asset identifier
@@ -592,6 +839,18 @@ exports.Asset = Asset;
  * data/basics/userBalance.go : AssetHolding
  */
 class AssetHolding extends basemodel_1.default {
+    /**
+     * (a) number of units held.
+     */
+    amount;
+    /**
+     * Asset ID of the holding.
+     */
+    assetId;
+    /**
+     * (f) whether or not the holding is frozen.
+     */
+    isFrozen;
     /**
      * Creates a new `AssetHolding` object.
      * @param amount - (a) number of units held.
@@ -634,6 +893,77 @@ exports.AssetHolding = AssetHolding;
  * data/transactions/asset.go : AssetParams
  */
 class AssetParams extends basemodel_1.default {
+    /**
+     * The address that created this asset. This is the address where the parameters
+     * for this asset can be found, and also the address where unwanted asset units can
+     * be sent in the worst case.
+     */
+    creator;
+    /**
+     * (dc) The number of digits to use after the decimal point when displaying this
+     * asset. If 0, the asset is not divisible. If 1, the base unit of the asset is in
+     * tenths. If 2, the base unit of the asset is in hundredths, and so on. This value
+     * must be between 0 and 19 (inclusive).
+     */
+    decimals;
+    /**
+     * (t) The total number of units of this asset.
+     */
+    total;
+    /**
+     * (c) Address of account used to clawback holdings of this asset. If empty,
+     * clawback is not permitted.
+     */
+    clawback;
+    /**
+     * (df) Whether holdings of this asset are frozen by default.
+     */
+    defaultFrozen;
+    /**
+     * (f) Address of account used to freeze holdings of this asset. If empty, freezing
+     * is not permitted.
+     */
+    freeze;
+    /**
+     * (m) Address of account used to manage the keys of this asset and to destroy it.
+     */
+    manager;
+    /**
+     * (am) A commitment to some unspecified asset metadata. The format of this
+     * metadata is up to the application.
+     */
+    metadataHash;
+    /**
+     * (an) Name of this asset, as supplied by the creator. Included only when the
+     * asset name is composed of printable utf-8 characters.
+     */
+    name;
+    /**
+     * Base64 encoded name of this asset, as supplied by the creator.
+     */
+    nameB64;
+    /**
+     * (r) Address of account holding reserve (non-minted) units of this asset.
+     */
+    reserve;
+    /**
+     * (un) Name of a unit of this asset, as supplied by the creator. Included only
+     * when the name of a unit of this asset is composed of printable utf-8 characters.
+     */
+    unitName;
+    /**
+     * Base64 encoded name of a unit of this asset, as supplied by the creator.
+     */
+    unitNameB64;
+    /**
+     * (au) URL where more information about the asset can be retrieved. Included only
+     * when the URL is composed of printable utf-8 characters.
+     */
+    url;
+    /**
+     * Base64 encoded URL where more information about the asset can be retrieved.
+     */
+    urlB64;
     /**
      * Creates a new `AssetParams` object.
      * @param creator - The address that created this asset. This is the address where the parameters
@@ -745,6 +1075,10 @@ exports.AssetParams = AssetParams;
  */
 class BlockHashResponse extends basemodel_1.default {
     /**
+     * Block header hash.
+     */
+    blockhash;
+    /**
      * Creates a new `BlockHashResponse` object.
      * @param blockhash - Block header hash.
      */
@@ -771,6 +1105,15 @@ exports.BlockHashResponse = BlockHashResponse;
  * Encoded block object.
  */
 class BlockResponse extends basemodel_1.default {
+    /**
+     * Block header data.
+     */
+    block;
+    /**
+     * Optional certificate object. This is only included when the format is set to
+     * message pack.
+     */
+    cert;
     /**
      * Creates a new `BlockResponse` object.
      * @param block - Block header data.
@@ -803,6 +1146,14 @@ exports.BlockResponse = BlockResponse;
  * Box name and its content.
  */
 class Box extends basemodel_1.default {
+    /**
+     * (name) box name, base64 encoded
+     */
+    name;
+    /**
+     * (value) box value, base64 encoded.
+     */
+    value;
     /**
      * Creates a new `Box` object.
      * @param name - (name) box name, base64 encoded
@@ -843,6 +1194,10 @@ exports.Box = Box;
  */
 class BoxDescriptor extends basemodel_1.default {
     /**
+     * Base64 encoded box name
+     */
+    name;
+    /**
      * Creates a new `BoxDescriptor` object.
      * @param name - Base64 encoded box name
      */
@@ -872,6 +1227,7 @@ exports.BoxDescriptor = BoxDescriptor;
  * Box names of an application
  */
 class BoxesResponse extends basemodel_1.default {
+    boxes;
     /**
      * Creates a new `BoxesResponse` object.
      * @param boxes -
@@ -896,6 +1252,12 @@ class BoxesResponse extends basemodel_1.default {
 }
 exports.BoxesResponse = BoxesResponse;
 class BuildVersion extends basemodel_1.default {
+    branch;
+    buildNumber;
+    channel;
+    commitHash;
+    major;
+    minor;
     /**
      * Creates a new `BuildVersion` object.
      * @param branch -
@@ -954,6 +1316,18 @@ exports.BuildVersion = BuildVersion;
  */
 class CompileResponse extends basemodel_1.default {
     /**
+     * base32 SHA512_256 of program bytes (Address style)
+     */
+    hash;
+    /**
+     * base64 encoded program bytes
+     */
+    result;
+    /**
+     * JSON of the source map
+     */
+    sourcemap;
+    /**
      * Creates a new `CompileResponse` object.
      * @param hash - base32 SHA512_256 of program bytes (Address style)
      * @param result - base64 encoded program bytes
@@ -991,6 +1365,10 @@ exports.CompileResponse = CompileResponse;
  */
 class DisassembleResponse extends basemodel_1.default {
     /**
+     * disassembled Teal code
+     */
+    result;
+    /**
      * Creates a new `DisassembleResponse` object.
      * @param result - disassembled Teal code
      */
@@ -1018,6 +1396,25 @@ exports.DisassembleResponse = DisassembleResponse;
  * ledger state upload, run TEAL scripts and return debugging information.
  */
 class DryrunRequest extends basemodel_1.default {
+    accounts;
+    apps;
+    /**
+     * LatestTimestamp is available to some TEAL scripts. Defaults to the latest
+     * confirmed timestamp this algod is attached to.
+     */
+    latestTimestamp;
+    /**
+     * ProtocolVersion specifies a specific version string to operate under, otherwise
+     * whatever the current protocol of the network this algod is running in.
+     */
+    protocolVersion;
+    /**
+     * Round is available to some TEAL scripts. Defaults to the current round on the
+     * network this algod is attached to.
+     */
+    round;
+    sources;
+    txns;
     /**
      * Creates a new `DryrunRequest` object.
      * @param accounts -
@@ -1084,6 +1481,12 @@ exports.DryrunRequest = DryrunRequest;
  * DryrunResponse contains per-txn debug information from a dryrun.
  */
 class DryrunResponse extends basemodel_1.default {
+    error;
+    /**
+     * Protocol version is the protocol version Dryrun was operated under.
+     */
+    protocolVersion;
+    txns;
     /**
      * Creates a new `DryrunResponse` object.
      * @param error -
@@ -1124,6 +1527,15 @@ exports.DryrunResponse = DryrunResponse;
  * transactions or application state.
  */
 class DryrunSource extends basemodel_1.default {
+    /**
+     * FieldName is what kind of sources this is. If lsig then it goes into the
+     * transactions[this.TxnIndex].LogicSig. If approv or clearp it goes into the
+     * Approval Program or Clear State Program of application[this.AppIndex].
+     */
+    fieldName;
+    source;
+    txnIndex;
+    appIndex;
     /**
      * Creates a new `DryrunSource` object.
      * @param fieldName - FieldName is what kind of sources this is. If lsig then it goes into the
@@ -1171,6 +1583,20 @@ exports.DryrunSource = DryrunSource;
  * Stores the TEAL eval step data
  */
 class DryrunState extends basemodel_1.default {
+    /**
+     * Line number
+     */
+    line;
+    /**
+     * Program counter
+     */
+    pc;
+    stack;
+    /**
+     * Evaluation error if any
+     */
+    error;
+    scratch;
     /**
      * Creates a new `DryrunState` object.
      * @param line - Line number
@@ -1221,6 +1647,32 @@ exports.DryrunState = DryrunState;
  * information and state updates from a dryrun.
  */
 class DryrunTxnResult extends basemodel_1.default {
+    /**
+     * Disassembled program line by line.
+     */
+    disassembly;
+    appCallMessages;
+    appCallTrace;
+    /**
+     * Budget added during execution of app call transaction.
+     */
+    budgetAdded;
+    /**
+     * Budget consumed during execution of app call transaction.
+     */
+    budgetConsumed;
+    /**
+     * Application state delta.
+     */
+    globalDelta;
+    localDeltas;
+    /**
+     * Disassembled lsig program line by line.
+     */
+    logicSigDisassembly;
+    logicSigMessages;
+    logicSigTrace;
+    logs;
     /**
      * Creates a new `DryrunTxnResult` object.
      * @param disassembly - Disassembled program line by line.
@@ -1296,6 +1748,8 @@ exports.DryrunTxnResult = DryrunTxnResult;
  * An error response with optional data field.
  */
 class ErrorResponse extends basemodel_1.default {
+    message;
+    data;
     /**
      * Creates a new `ErrorResponse` object.
      * @param message -
@@ -1327,6 +1781,18 @@ exports.ErrorResponse = ErrorResponse;
  * Represents a TEAL value delta.
  */
 class EvalDelta extends basemodel_1.default {
+    /**
+     * (at) delta action.
+     */
+    action;
+    /**
+     * (bs) bytes value.
+     */
+    bytes;
+    /**
+     * (ui) uint value.
+     */
+    uint;
     /**
      * Creates a new `EvalDelta` object.
      * @param action - (at) delta action.
@@ -1362,6 +1828,11 @@ exports.EvalDelta = EvalDelta;
  * Key-value pairs for StateDelta.
  */
 class EvalDeltaKeyValue extends basemodel_1.default {
+    key;
+    /**
+     * Represents a TEAL value delta.
+     */
+    value;
     /**
      * Creates a new `EvalDeltaKeyValue` object.
      * @param key -
@@ -1396,6 +1867,10 @@ exports.EvalDeltaKeyValue = EvalDeltaKeyValue;
  */
 class GetBlockTimeStampOffsetResponse extends basemodel_1.default {
     /**
+     * Timestamp offset in seconds.
+     */
+    offset;
+    /**
      * Creates a new `GetBlockTimeStampOffsetResponse` object.
      * @param offset - Timestamp offset in seconds.
      */
@@ -1422,6 +1897,10 @@ exports.GetBlockTimeStampOffsetResponse = GetBlockTimeStampOffsetResponse;
  * Response containing the ledger's minimum sync round
  */
 class GetSyncRoundResponse extends basemodel_1.default {
+    /**
+     * The minimum sync round for the ledger.
+     */
+    round;
     /**
      * Creates a new `GetSyncRoundResponse` object.
      * @param round - The minimum sync round for the ledger.
@@ -1450,6 +1929,14 @@ exports.GetSyncRoundResponse = GetSyncRoundResponse;
  * a single round.
  */
 class KvDelta extends basemodel_1.default {
+    /**
+     * The key, base64 encoded.
+     */
+    key;
+    /**
+     * The new value of the KV store entry, base64 encoded.
+     */
+    value;
     /**
      * Creates a new `KvDelta` object.
      * @param key - The key, base64 encoded.
@@ -1486,6 +1973,11 @@ exports.KvDelta = KvDelta;
  */
 class LedgerStateDeltaForTransactionGroup extends basemodel_1.default {
     /**
+     * Ledger StateDelta object
+     */
+    delta;
+    ids;
+    /**
      * Creates a new `LedgerStateDeltaForTransactionGroup` object.
      * @param delta - Ledger StateDelta object
      * @param ids -
@@ -1518,6 +2010,19 @@ exports.LedgerStateDeltaForTransactionGroup = LedgerStateDeltaForTransactionGrou
  * Proof of membership and position of a light block header.
  */
 class LightBlockHeaderProof extends basemodel_1.default {
+    /**
+     * The index of the light block header in the vector commitment tree
+     */
+    index;
+    /**
+     * The encoded proof.
+     */
+    proof;
+    /**
+     * Represents the depth of the tree that is being proven, i.e. the number of edges
+     * from a leaf to the root.
+     */
+    treedepth;
     /**
      * Creates a new `LightBlockHeaderProof` object.
      * @param index - The index of the light block header in the vector commitment tree
@@ -1561,6 +2066,118 @@ exports.LightBlockHeaderProof = LightBlockHeaderProof;
  *
  */
 class NodeStatusResponse extends basemodel_1.default {
+    /**
+     * CatchupTime in nanoseconds
+     */
+    catchupTime;
+    /**
+     * LastRound indicates the last round seen
+     */
+    lastRound;
+    /**
+     * LastVersion indicates the last consensus version supported
+     */
+    lastVersion;
+    /**
+     * NextVersion of consensus protocol to use
+     */
+    nextVersion;
+    /**
+     * NextVersionRound is the round at which the next consensus version will apply
+     */
+    nextVersionRound;
+    /**
+     * NextVersionSupported indicates whether the next consensus version is supported
+     * by this node
+     */
+    nextVersionSupported;
+    /**
+     * StoppedAtUnsupportedRound indicates that the node does not support the new
+     * rounds and has stopped making progress
+     */
+    stoppedAtUnsupportedRound;
+    /**
+     * TimeSinceLastRound in nanoseconds
+     */
+    timeSinceLastRound;
+    /**
+     * The current catchpoint that is being caught up to
+     */
+    catchpoint;
+    /**
+     * The number of blocks that have already been obtained by the node as part of the
+     * catchup
+     */
+    catchpointAcquiredBlocks;
+    /**
+     * The number of accounts from the current catchpoint that have been processed so
+     * far as part of the catchup
+     */
+    catchpointProcessedAccounts;
+    /**
+     * The number of key-values (KVs) from the current catchpoint that have been
+     * processed so far as part of the catchup
+     */
+    catchpointProcessedKvs;
+    /**
+     * The total number of accounts included in the current catchpoint
+     */
+    catchpointTotalAccounts;
+    /**
+     * The total number of blocks that are required to complete the current catchpoint
+     * catchup
+     */
+    catchpointTotalBlocks;
+    /**
+     * The total number of key-values (KVs) included in the current catchpoint
+     */
+    catchpointTotalKvs;
+    /**
+     * The number of accounts from the current catchpoint that have been verified so
+     * far as part of the catchup
+     */
+    catchpointVerifiedAccounts;
+    /**
+     * The number of key-values (KVs) from the current catchpoint that have been
+     * verified so far as part of the catchup
+     */
+    catchpointVerifiedKvs;
+    /**
+     * The last catchpoint seen by the node
+     */
+    lastCatchpoint;
+    /**
+     * Upgrade delay
+     */
+    upgradeDelay;
+    /**
+     * Next protocol round
+     */
+    upgradeNextProtocolVoteBefore;
+    /**
+     * No votes cast for consensus upgrade
+     */
+    upgradeNoVotes;
+    /**
+     * This node's upgrade vote
+     */
+    upgradeNodeVote;
+    /**
+     * Total voting rounds for current upgrade
+     */
+    upgradeVoteRounds;
+    /**
+     * Total votes cast for consensus upgrade
+     */
+    upgradeVotes;
+    /**
+     * Yes votes required for consensus upgrade
+     */
+    upgradeVotesRequired;
+    /**
+     * Yes votes cast for consensus upgrade
+     */
+    upgradeYesVotes;
     /**
      * Creates a new `NodeStatusResponse` object.
      * @param catchupTime - CatchupTime in nanoseconds
@@ -1712,6 +2329,67 @@ exports.NodeStatusResponse = NodeStatusResponse;
  */
 class PendingTransactionResponse extends basemodel_1.default {
     /**
+     * Indicates that the transaction was kicked out of this node's transaction pool
+     * (and specifies why that happened). An empty string indicates the transaction
+     * wasn't kicked out of this node's txpool due to an error.
+     */
+    poolError;
+    /**
+     * The raw signed transaction.
+     */
+    txn;
+    /**
+     * The application index if the transaction was found and it created an
+     * application.
+     */
+    applicationIndex;
+    /**
+     * The number of the asset's unit that were transferred to the close-to address.
+     */
+    assetClosingAmount;
+    /**
+     * The asset index if the transaction was found and it created an asset.
+     */
+    assetIndex;
+    /**
+     * Rewards in microalgos applied to the close remainder to account.
+     */
+    closeRewards;
+    /**
+     * Closing amount for the transaction.
+     */
+    closingAmount;
+    /**
+     * The round where this transaction was confirmed, if present.
+     */
+    confirmedRound;
+    /**
+     * Global state key/value changes for the application being executed by this
+     * transaction.
+     */
+    globalStateDelta;
+    /**
+     * Inner transactions produced by application execution.
+     */
+    innerTxns;
+    /**
+     * Local state key/value changes for the application being executed by this
+     * transaction.
+     */
+    localStateDelta;
+    /**
+     * Logs for the application being executed by this transaction.
+     */
+    logs;
+    /**
+     * Rewards in microalgos applied to the receiver account.
+     */
+    receiverRewards;
+    /**
+     * Rewards in microalgos applied to the sender account.
+     */
+    senderRewards;
+    /**
      * Creates a new `PendingTransactionResponse` object.
      * @param poolError - Indicates that the transaction was kicked out of this node's transaction pool
      * (and specifies why that happened). An empty string indicates the transaction
@@ -1806,6 +2484,14 @@ exports.PendingTransactionResponse = PendingTransactionResponse;
  */
 class PendingTransactionsResponse extends basemodel_1.default {
     /**
+     * An array of signed transaction objects.
+     */
+    topTransactions;
+    /**
+     * Total number of transactions in the pool.
+     */
+    totalTransactions;
+    /**
      * Creates a new `PendingTransactionsResponse` object.
      * @param topTransactions - An array of signed transaction objects.
      * @param totalTransactions - Total number of transactions in the pool.
@@ -1839,6 +2525,10 @@ exports.PendingTransactionsResponse = PendingTransactionsResponse;
  */
 class PostTransactionsResponse extends basemodel_1.default {
     /**
+     * encoding of the transaction hash.
+     */
+    txid;
+    /**
      * Creates a new `PostTransactionsResponse` object.
      * @param txid - encoding of the transaction hash.
      */
@@ -1865,6 +2555,23 @@ exports.PostTransactionsResponse = PostTransactionsResponse;
  * Request type for simulation endpoint.
  */
 class SimulateRequest extends basemodel_1.default {
+    /**
+     * The transaction groups to simulate.
+     */
+    txnGroups;
+    /**
+     * Allow transactions without signatures to be simulated as if they had correct
+     * signatures.
+     */
+    allowEmptySignatures;
+    /**
+     * Lifts limits on log opcode usage during simulation.
+     */
+    allowMoreLogging;
+    /**
+     * Applies extra opcode budget during simulation for each transaction group.
+     */
+    extraOpcodeBudget;
     /**
      * Creates a new `SimulateRequest` object.
      * @param txnGroups - The transaction groups to simulate.
@@ -1906,6 +2613,10 @@ exports.SimulateRequest = SimulateRequest;
  */
 class SimulateRequestTransactionGroup extends basemodel_1.default {
     /**
+     * An atomic transaction group.
+     */
+    txns;
+    /**
      * Creates a new `SimulateRequestTransactionGroup` object.
      * @param txns - An atomic transaction group.
      */
@@ -1932,6 +2643,25 @@ exports.SimulateRequestTransactionGroup = SimulateRequestTransactionGroup;
  * Result of a transaction group simulation.
  */
 class SimulateResponse extends basemodel_1.default {
+    /**
+     * The round immediately preceding this simulation. State changes through this
+     * round were used to run this simulation.
+     */
+    lastRound;
+    /**
+     * A result object for each transaction group that was simulated.
+     */
+    txnGroups;
+    /**
+     * The version of this response object.
+     */
+    version;
+    /**
+     * The set of parameters and limits override during simulation. If this set of
+     * parameters is present, then evaluation parameters may differ from standard
+     * evaluation in certain ways.
+     */
+    evalOverrides;
     /**
      * Creates a new `SimulateResponse` object.
      * @param lastRound - The round immediately preceding this simulation. State changes through this
@@ -1981,6 +2711,30 @@ exports.SimulateResponse = SimulateResponse;
  */
 class SimulateTransactionGroupResult extends basemodel_1.default {
     /**
+     * Simulation result for individual transactions
+     */
+    txnResults;
+    /**
+     * Total budget added during execution of app calls in the transaction group.
+     */
+    appBudgetAdded;
+    /**
+     * Total budget consumed during execution of app calls in the transaction group.
+     */
+    appBudgetConsumed;
+    /**
+     * If present, indicates which transaction in this group caused the failure. This
+     * array represents the path to the failing transaction. Indexes are zero based,
+     * the first element indicates the top-level transaction, and successive elements
+     * indicate deeper inner transactions.
+     */
+    failedAt;
+    /**
+     * If present, indicates that the transaction group failed and specifies why that
+     * happened
+     */
+    failureMessage;
+    /**
      * Creates a new `SimulateTransactionGroupResult` object.
      * @param txnResults - Simulation result for individual transactions
      * @param appBudgetAdded - Total budget added during execution of app calls in the transaction group.
@@ -2028,6 +2782,20 @@ exports.SimulateTransactionGroupResult = SimulateTransactionGroupResult;
  */
 class SimulateTransactionResult extends basemodel_1.default {
     /**
+     * Details about a pending transaction. If the transaction was recently confirmed,
+     * includes confirmation details like the round and reward details.
+     */
+    txnResult;
+    /**
+     * Budget used during execution of an app call transaction. This value includes
+     * budged used by inner app calls spawned by this transaction.
+     */
+    appBudgetConsumed;
+    /**
+     * Budget used during execution of a logic sig transaction.
+     */
+    logicSigBudgetConsumed;
+    /**
      * Creates a new `SimulateTransactionResult` object.
      * @param txnResult - Details about a pending transaction. If the transaction was recently confirmed,
      * includes confirmation details like the round and reward details.
@@ -2067,6 +2835,23 @@ exports.SimulateTransactionResult = SimulateTransactionResult;
  */
 class SimulationEvalOverrides extends basemodel_1.default {
     /**
+     * If true, transactions without signatures are allowed and simulated as if they
+     * were properly signed.
+     */
+    allowEmptySignatures;
+    /**
+     * The extra opcode budget added to each transaction group during simulation
+     */
+    extraOpcodeBudget;
+    /**
+     * The maximum log calls one can make during simulation
+     */
+    maxLogCalls;
+    /**
+     * The maximum byte number to log during simulation
+     */
+    maxLogSize;
+    /**
      * Creates a new `SimulationEvalOverrides` object.
      * @param allowEmptySignatures - If true, transactions without signatures are allowed and simulated as if they
      * were properly signed.
@@ -2105,6 +2890,14 @@ exports.SimulationEvalOverrides = SimulationEvalOverrides;
  */
 class StateProof extends basemodel_1.default {
     /**
+     * Represents the message that the state proofs are attesting to.
+     */
+    message;
+    /**
+     * The encoded StateProof for the message.
+     */
+    stateproof;
+    /**
      * Creates a new `StateProof` object.
      * @param message - Represents the message that the state proofs are attesting to.
      * @param stateproof - The encoded StateProof for the message.
@@ -2140,6 +2933,28 @@ exports.StateProof = StateProof;
  * Represents the message that the state proofs are attesting to.
  */
 class StateProofMessage extends basemodel_1.default {
+    /**
+     * The vector commitment root on all light block headers within a state proof
+     * interval.
+     */
+    blockheaderscommitment;
+    /**
+     * The first round the message attests to.
+     */
+    firstattestedround;
+    /**
+     * The last round the message attests to.
+     */
+    lastattestedround;
+    /**
+     * An integer value representing the natural log of the proven weight with 16 bits
+     * of precision. This value would be used to verify the next state proof.
+     */
+    lnprovenweight;
+    /**
+     * The vector commitment root of the top N accounts to sign the next StateProof.
+     */
+    voterscommitment;
     /**
      * Creates a new `StateProofMessage` object.
      * @param blockheaderscommitment - The vector commitment root on all light block headers within a state proof
@@ -2200,6 +3015,18 @@ exports.StateProofMessage = StateProofMessage;
  */
 class SupplyResponse extends basemodel_1.default {
     /**
+     * Round
+     */
+    currentRound;
+    /**
+     * OnlineMoney
+     */
+    onlineMoney;
+    /**
+     * TotalMoney
+     */
+    totalMoney;
+    /**
      * Creates a new `SupplyResponse` object.
      * @param currentRound - Round
      * @param onlineMoney - OnlineMoney
@@ -2238,6 +3065,11 @@ exports.SupplyResponse = SupplyResponse;
  * Represents a key-value pair in an application store.
  */
 class TealKeyValue extends basemodel_1.default {
+    key;
+    /**
+     * Represents a TEAL value.
+     */
+    value;
     /**
      * Creates a new `TealKeyValue` object.
      * @param key -
@@ -2271,6 +3103,18 @@ exports.TealKeyValue = TealKeyValue;
  * Represents a TEAL value.
  */
 class TealValue extends basemodel_1.default {
+    /**
+     * (tt) value type. Value `1` refers to **bytes**, value `2` refers to **uint**
+     */
+    type;
+    /**
+     * (tb) bytes value.
+     */
+    bytes;
+    /**
+     * (ui) uint value.
+     */
+    uint;
     /**
      * Creates a new `TealValue` object.
      * @param type - (tt) value type. Value `1` refers to **bytes**, value `2` refers to **uint**
@@ -2311,6 +3155,7 @@ exports.TealValue = TealValue;
  * associated Ids, in a single round.
  */
 class TransactionGroupLedgerStateDeltasForRoundResponse extends basemodel_1.default {
+    deltas;
     /**
      * Creates a new `TransactionGroupLedgerStateDeltasForRoundResponse` object.
      * @param deltas -
@@ -2339,6 +3184,35 @@ exports.TransactionGroupLedgerStateDeltasForRoundResponse = TransactionGroupLedg
  * transaction.
  */
 class TransactionParametersResponse extends basemodel_1.default {
+    /**
+     * ConsensusVersion indicates the consensus protocol version
+     * as of LastRound.
+     */
+    consensusVersion;
+    /**
+     * Fee is the suggested transaction fee
+     * Fee is in units of micro-Algos per byte.
+     * Fee may fall to zero but transactions must still have a fee of
+     * at least MinTxnFee for the current network protocol.
+     */
+    fee;
+    /**
+     * GenesisHash is the hash of the genesis block.
+     */
+    genesisHash;
+    /**
+     * GenesisID is an ID listed in the genesis block.
+     */
+    genesisId;
+    /**
+     * LastRound indicates the last round seen
+     */
+    lastRound;
+    /**
+     * The minimum transaction fee (not per byte) required for the
+     * txn to validate for the current network protocol.
+     */
+    minFee;
     /**
      * Creates a new `TransactionParametersResponse` object.
      * @param consensusVersion - ConsensusVersion indicates the consensus protocol version
@@ -2405,6 +3279,29 @@ exports.TransactionParametersResponse = TransactionParametersResponse;
  */
 class TransactionProofResponse extends basemodel_1.default {
     /**
+     * Index of the transaction in the block's payset.
+     */
+    idx;
+    /**
+     * Proof of transaction membership.
+     */
+    proof;
+    /**
+     * Hash of SignedTxnInBlock for verifying proof.
+     */
+    stibhash;
+    /**
+     * Represents the depth of the tree that is being proven, i.e. the number of edges
+     * from a leaf to the root.
+     */
+    treedepth;
+    /**
+     * The type of hash function used to create the proof, must be one of:
+     * * sha512_256
+     * * sha256
+     */
+    hashtype;
+    /**
      * Creates a new `TransactionProofResponse` object.
      * @param idx - Index of the transaction in the block's payset.
      * @param proof - Proof of transaction membership.
@@ -2462,6 +3359,10 @@ exports.TransactionProofResponse = TransactionProofResponse;
  * algod version information.
  */
 class Version extends basemodel_1.default {
+    build;
+    genesisHashB64;
+    genesisId;
+    versions;
     /**
      * Creates a new `Version` object.
      * @param build -

@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupTransactionByID extends JSONRequest {
+    txID;
     /**
      * Returns information about the given transaction.
      *

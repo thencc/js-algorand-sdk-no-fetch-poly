@@ -3,6 +3,7 @@ import JSONRequest from '../jsonrequest';
 import * as encoding from '../../../encoding/encoding';
 import { setHeaders } from './compile';
 export default class Dryrun extends JSONRequest {
+    blob;
     constructor(c, dr) {
         super(c);
         this.blob = encoding.encode(dr.get_obj_for_encoding(true));

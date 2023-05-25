@@ -1,6 +1,7 @@
 import JSONRequest from '../jsonrequest';
 import { base64StringFunnel } from './lookupAccountTransactions';
 export default class LookupAssetTransactions extends JSONRequest {
+    index;
     /**
      * Returns transactions relating to the given asset.
      *

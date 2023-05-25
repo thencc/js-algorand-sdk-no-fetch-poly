@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupAccountAppLocalStates extends JSONRequest {
+    account;
     /**
      * Returns application local state about the given account.
      *

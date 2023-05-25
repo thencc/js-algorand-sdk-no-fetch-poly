@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class GetApplicationByID extends JSONRequest {
+    index;
     constructor(c, intDecoding, index) {
         super(c, intDecoding);
         this.index = index;

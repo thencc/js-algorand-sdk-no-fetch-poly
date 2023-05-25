@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupAccountCreatedApplications extends JSONRequest {
+    account;
     /**
      * Returns application information created by the given account.
      *

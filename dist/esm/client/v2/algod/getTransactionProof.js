@@ -1,5 +1,7 @@
 import JSONRequest from '../jsonrequest';
 export default class GetTransactionProof extends JSONRequest {
+    round;
+    txID;
     constructor(c, intDecoding, round, txID) {
         super(c, intDecoding);
         this.round = round;

@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ABIInterface = void 0;
 const method_1 = require("./method");
 class ABIInterface {
+    name;
+    description;
+    methods;
     constructor(params) {
         if (typeof params.name !== 'string' || !Array.isArray(params.methods)) {
             throw new Error('Invalid ABIInterface parameters');

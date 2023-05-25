@@ -101,10 +101,8 @@ export { isValidAddress, encodeAddress, decodeAddress, getApplicationAddress, } 
 export { bytesToBigInt, bigIntToBytes } from './encoding/bigint';
 export { encodeUint64, decodeUint64 } from './encoding/uint64';
 export { default as generateAccount } from './account';
-import * as modelsv2_1 from './client/v2/algod/models/types';
-export { modelsv2_1 as modelsv2 };
-import * as indexerModels_1 from './client/v2/indexer/models/types';
-export { indexerModels_1 as indexerModels };
+export * as modelsv2 from './client/v2/algod/models/types';
+export * as indexerModels from './client/v2/indexer/models/types';
 export { mnemonicToMasterDerivationKey, masterDerivationKeyToMnemonic, secretKeyToMnemonic, mnemonicToSecretKey, seedFromMnemonic, mnemonicFromSeed, } from './mnemonic/mnemonic';
 export { microalgosToAlgos, algosToMicroalgos, INVALID_MICROALGOS_ERROR_MSG, } from './convert';
 export { computeGroupID, assignGroupID } from './group';

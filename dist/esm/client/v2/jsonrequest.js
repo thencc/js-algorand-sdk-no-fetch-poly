@@ -7,6 +7,9 @@ import IntDecoding from '../../types/intDecoding';
  * Body: The structure of the response's body
  */
 export default class JSONRequest {
+    c;
+    query;
+    intDecoding;
     /**
      * @param client - HTTPClient object.
      * @param intDecoding - The method to use

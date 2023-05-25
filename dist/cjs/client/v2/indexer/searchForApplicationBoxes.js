@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 const types_1 = require("./models/types");
 class SearchForApplicationBoxes extends jsonrequest_1.default {
+    index;
     /**
      * Returns information about indexed application boxes.
      *

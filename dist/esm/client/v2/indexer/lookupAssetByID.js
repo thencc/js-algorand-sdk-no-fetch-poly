@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupAssetByID extends JSONRequest {
+    index;
     /**
      * Returns asset information of the queried asset.
      *

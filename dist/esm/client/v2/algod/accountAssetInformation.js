@@ -1,5 +1,7 @@
 import JSONRequest from '../jsonrequest';
 export default class AccountAssetInformation extends JSONRequest {
+    account;
+    assetID;
     constructor(c, intDecoding, account, assetID) {
         super(c, intDecoding);
         this.account = account;

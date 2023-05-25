@@ -31,6 +31,7 @@ const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 const encoding = __importStar(require("../../../encoding/encoding"));
 const compile_1 = require("./compile");
 class Dryrun extends jsonrequest_1.default {
+    blob;
     constructor(c, dr) {
         super(c);
         this.blob = encoding.encode(dr.get_obj_for_encoding(true));

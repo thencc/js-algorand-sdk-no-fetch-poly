@@ -23,6 +23,7 @@ exports.setHeaders = setHeaders;
  * Executes compile
  */
 class Compile extends jsonrequest_1.default {
+    source;
     constructor(c, source) {
         super(c);
         this.source = source;

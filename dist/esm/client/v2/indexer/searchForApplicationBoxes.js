@@ -1,6 +1,7 @@
 import JSONRequest from '../jsonrequest';
 import { BoxesResponse } from './models/types';
 export default class SearchForApplicationBoxes extends JSONRequest {
+    index;
     /**
      * Returns information about indexed application boxes.
      *

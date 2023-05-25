@@ -16,6 +16,7 @@ export function setHeaders(headers = {}) {
  * Executes disassemble
  */
 export default class Disassemble extends JSONRequest {
+    source;
     constructor(c, source) {
         super(c);
         this.source = source;

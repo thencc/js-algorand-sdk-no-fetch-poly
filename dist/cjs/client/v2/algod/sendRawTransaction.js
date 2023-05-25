@@ -28,6 +28,7 @@ function isByteArray(array) {
  * broadcasts the passed signed txns to the network
  */
 class SendRawTransaction extends jsonrequest_1.default {
+    txnBytesToPost;
     constructor(c, stxOrStxs) {
         super(c);
         let forPosting = stxOrStxs;

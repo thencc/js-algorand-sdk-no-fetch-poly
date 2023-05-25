@@ -1,5 +1,8 @@
 import { ABIMethod, getMethodByName } from './method';
 export class ABIInterface {
+    name;
+    description;
+    methods;
     constructor(params) {
         if (typeof params.name !== 'string' || !Array.isArray(params.methods)) {
             throw new Error('Invalid ABIInterface parameters');

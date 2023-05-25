@@ -26,6 +26,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SourceMap = void 0;
 const vlq = __importStar(require("vlq"));
 class SourceMap {
+    version;
+    sources;
+    names;
+    mappings;
+    pcToLine;
+    lineToPc;
     constructor({ version, sources, names, mappings, }) {
         this.version = version;
         this.sources = sources;

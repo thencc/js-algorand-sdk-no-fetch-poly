@@ -32,6 +32,7 @@ const encoding = __importStar(require("../../../encoding/encoding"));
  * returns all transactions for a PK [addr] in the [first, last] rounds range.
  */
 class PendingTransactionsByAddress extends jsonrequest_1.default {
+    address;
     constructor(c, address) {
         super(c);
         this.address = address;

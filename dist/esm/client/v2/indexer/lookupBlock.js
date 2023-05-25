@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupBlock extends JSONRequest {
+    round;
     /**
      * Returns the block for the passed round.
      *

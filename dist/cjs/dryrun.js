@@ -116,10 +116,10 @@ async function createDryrun({ client, txns, protocolVersion, latestTimestamp, ro
 }
 exports.createDryrun = createDryrun;
 class DryrunStackValue {
+    type = 0;
+    bytes = '';
+    uint = 0;
     constructor(sv) {
-        this.type = 0;
-        this.bytes = '';
-        this.uint = 0;
         this.type = sv.type;
         this.bytes = sv.bytes;
         this.uint = sv.uint;
@@ -132,12 +132,12 @@ class DryrunStackValue {
     }
 }
 class DryrunTraceLine {
+    error = '';
+    line = 0;
+    pc = 0;
+    scratch = [];
+    stack = [];
     constructor(line) {
-        this.error = '';
-        this.line = 0;
-        this.pc = 0;
-        this.scratch = [];
-        this.stack = [];
         this.error = line.error === undefined ? '' : line.error;
         this.line = line.line;
         this.pc = line.pc;
@@ -146,8 +146,8 @@ class DryrunTraceLine {
     }
 }
 class DryrunTrace {
+    trace = [];
     constructor(t) {
-        this.trace = [];
         if (t == null)
             return;
         this.trace = t.map((line) => new DryrunTraceLine(line));
@@ -196,28 +196,28 @@ function stackToString(stack, reverse) {
         .join(', ')}]`;
 }
 class DryrunTransactionResult {
+    disassembly = [];
+    appCallMessages = [];
+    localDeltas = [];
+    globalDelta = [];
+    cost = 0;
+    logicSigMessages = [];
+    logicSigDisassembly = [];
+    logs = [];
+    appCallTrace = undefined;
+    logicSigTrace = undefined;
+    required = ['disassembly'];
+    optionals = [
+        'app-call-messages',
+        'local-deltas',
+        'global-delta',
+        'cost',
+        'logic-sig-messages',
+        'logic-sig-disassembly',
+        'logs',
+    ];
+    traces = ['app-call-trace', 'logic-sig-trace'];
     constructor(dtr) {
-        this.disassembly = [];
-        this.appCallMessages = [];
-        this.localDeltas = [];
-        this.globalDelta = [];
-        this.cost = 0;
-        this.logicSigMessages = [];
-        this.logicSigDisassembly = [];
-        this.logs = [];
-        this.appCallTrace = undefined;
-        this.logicSigTrace = undefined;
-        this.required = ['disassembly'];
-        this.optionals = [
-            'app-call-messages',
-            'local-deltas',
-            'global-delta',
-            'cost',
-            'logic-sig-messages',
-            'logic-sig-disassembly',
-            'logs',
-        ];
-        this.traces = ['app-call-trace', 'logic-sig-trace'];
         this.disassembly = dtr.disassembly;
         this.appCallMessages = dtr['app-call-messages'];
         this.localDeltas = dtr['local-deltas'];
@@ -297,10 +297,10 @@ class DryrunTransactionResult {
     }
 }
 class DryrunResult {
+    error = '';
+    protocolVersion = '';
+    txns = [];
     constructor(drrResp) {
-        this.error = '';
-        this.protocolVersion = '';
-        this.txns = [];
         this.error = drrResp.error;
         this.protocolVersion = drrResp['protocol-version'];
         this.txns = drrResp.txns.map((txn) => new DryrunTransactionResult(txn));

@@ -20,6 +20,7 @@ const types_1 = require("./models/types");
  * @category GET
  */
 class GetApplicationBoxes extends jsonrequest_1.default {
+    index;
     constructor(c, intDecoding, index) {
         super(c, intDecoding);
         this.index = index;

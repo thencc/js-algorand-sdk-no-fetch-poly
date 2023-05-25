@@ -7,6 +7,7 @@ const buffer_1 = require("buffer");
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 const types_1 = require("./models/types");
 class LookupApplicationBoxByIDandName extends jsonrequest_1.default {
+    index;
     /**
      * Returns information about indexed application boxes.
      *

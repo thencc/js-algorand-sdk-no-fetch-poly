@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class GetAssetByID extends JSONRequest {
+    index;
     constructor(c, intDecoding, index) {
         super(c, intDecoding);
         this.index = index;

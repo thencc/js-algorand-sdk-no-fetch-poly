@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 class GetTransactionProof extends jsonrequest_1.default {
+    round;
+    txID;
     constructor(c, intDecoding, round, txID) {
         super(c, intDecoding);
         this.round = round;

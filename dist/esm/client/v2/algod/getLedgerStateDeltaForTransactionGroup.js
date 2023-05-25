@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class GetLedgerStateDeltaForTransactionGroup extends JSONRequest {
+    id;
     constructor(c, intDecoding, id) {
         super(c, intDecoding);
         this.id = id;

@@ -1,6 +1,7 @@
 import JSONRequest from '../jsonrequest';
 import { TransactionGroupLedgerStateDeltasForRoundResponse } from './models/types';
 export default class GetTransactionGroupLedgerStateDeltasForRound extends JSONRequest {
+    round;
     constructor(c, intDecoding, round) {
         super(c, intDecoding);
         this.round = round;

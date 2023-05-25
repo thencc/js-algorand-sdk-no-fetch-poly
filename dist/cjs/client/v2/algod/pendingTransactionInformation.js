@@ -32,6 +32,7 @@ const encoding = __importStar(require("../../../encoding/encoding"));
  * returns the transaction information for a specific txid of a pending transaction
  */
 class PendingTransactionInformation extends jsonrequest_1.default {
+    txid;
     constructor(c, txid) {
         super(c);
         this.txid = txid;

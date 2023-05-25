@@ -4,6 +4,7 @@ import * as encoding from '../../../encoding/encoding';
  * returns the transaction information for a specific txid of a pending transaction
  */
 export default class PendingTransactionInformation extends JSONRequest {
+    txid;
     constructor(c, txid) {
         super(c);
         this.txid = txid;

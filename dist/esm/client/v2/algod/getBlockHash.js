@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class GetBlockHash extends JSONRequest {
+    round;
     constructor(c, intDecoding, roundNumber) {
         super(c, intDecoding);
         if (!Number.isInteger(roundNumber))

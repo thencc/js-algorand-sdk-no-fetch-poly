@@ -12,6 +12,9 @@ const intDecoding_1 = __importDefault(require("../../types/intDecoding"));
  * Body: The structure of the response's body
  */
 class JSONRequest {
+    c;
+    query;
+    intDecoding;
     /**
      * @param client - HTTPClient object.
      * @param intDecoding - The method to use

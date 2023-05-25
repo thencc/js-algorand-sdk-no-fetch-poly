@@ -4,6 +4,7 @@ import JSONRequest from '../jsonrequest';
  * block gets the block info for the given round. this call may block
  */
 export default class Block extends JSONRequest {
+    round;
     constructor(c, roundNumber) {
         super(c);
         if (!Number.isInteger(roundNumber))

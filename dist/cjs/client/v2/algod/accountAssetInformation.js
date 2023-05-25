@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 class AccountAssetInformation extends jsonrequest_1.default {
+    account;
+    assetID;
     constructor(c, intDecoding, account, assetID) {
         super(c, intDecoding);
         this.account = account;

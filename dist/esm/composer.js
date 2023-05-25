@@ -53,13 +53,13 @@ function populateForeignArray(valueToAdd, array, zeroValue) {
 }
 /** A class used to construct and execute atomic transaction groups */
 export class AtomicTransactionComposer {
-    constructor() {
-        this.status = AtomicTransactionComposerStatus.BUILDING;
-        this.transactions = [];
-        this.methodCalls = new Map();
-        this.signedTxns = [];
-        this.txIDs = [];
-    }
+    /** The maximum size of an atomic transaction group. */
+    static MAX_GROUP_SIZE = 16;
+    status = AtomicTransactionComposerStatus.BUILDING;
+    transactions = [];
+    methodCalls = new Map();
+    signedTxns = [];
+    txIDs = [];
     /**
      * Get the status of this composer's transaction group.
      */
@@ -501,6 +501,4 @@ export class AtomicTransactionComposer {
         return returnedResult;
     }
 }
-/** The maximum size of an atomic transaction group. */
-AtomicTransactionComposer.MAX_GROUP_SIZE = 16;
 //# sourceMappingURL=composer.js.map

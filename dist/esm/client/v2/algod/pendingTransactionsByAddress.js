@@ -4,6 +4,7 @@ import * as encoding from '../../../encoding/encoding';
  * returns all transactions for a PK [addr] in the [first, last] rounds range.
  */
 export default class PendingTransactionsByAddress extends JSONRequest {
+    address;
     constructor(c, address) {
         super(c);
         this.address = address;

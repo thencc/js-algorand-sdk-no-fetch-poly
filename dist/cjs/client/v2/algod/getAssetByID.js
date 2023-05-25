@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 class GetAssetByID extends jsonrequest_1.default {
+    index;
     constructor(c, intDecoding, index) {
         super(c, intDecoding);
         this.index = index;

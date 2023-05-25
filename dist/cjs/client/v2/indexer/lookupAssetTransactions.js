@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 const lookupAccountTransactions_1 = require("./lookupAccountTransactions");
 class LookupAssetTransactions extends jsonrequest_1.default {
+    index;
     /**
      * Returns transactions relating to the given asset.
      *

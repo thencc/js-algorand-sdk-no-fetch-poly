@@ -1,5 +1,6 @@
 import JSONRequest from '../jsonrequest';
 export default class LookupAssetBalances extends JSONRequest {
+    index;
     /**
      * Returns the list of accounts which hold the given asset and their balance.
      *

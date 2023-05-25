@@ -1,5 +1,11 @@
 import * as vlq from 'vlq';
 export class SourceMap {
+    version;
+    sources;
+    names;
+    mappings;
+    pcToLine;
+    lineToPc;
     constructor({ version, sources, names, mappings, }) {
         this.version = version;
         this.sources = sources;

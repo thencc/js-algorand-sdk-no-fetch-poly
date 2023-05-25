@@ -41,9 +41,64 @@ function getKeyregKey(input, inputName, length) {
  * Transaction enables construction of Algorand transactions
  * */
 export class Transaction {
+    name = 'Transaction';
+    tag = Buffer.from('TX');
+    // Implement transaction params
+    from;
+    to;
+    fee;
+    amount;
+    firstRound;
+    lastRound;
+    note;
+    genesisID;
+    genesisHash;
+    lease;
+    closeRemainderTo;
+    voteKey;
+    selectionKey;
+    stateProofKey;
+    voteFirst;
+    voteLast;
+    voteKeyDilution;
+    assetIndex;
+    assetTotal;
+    assetDecimals;
+    assetDefaultFrozen;
+    assetManager;
+    assetReserve;
+    assetFreeze;
+    assetClawback;
+    assetUnitName;
+    assetName;
+    assetURL;
+    assetMetadataHash;
+    freezeAccount;
+    freezeState;
+    assetRevocationTarget;
+    appIndex;
+    appOnComplete;
+    appLocalInts;
+    appLocalByteSlices;
+    appGlobalInts;
+    appGlobalByteSlices;
+    appApprovalProgram;
+    appClearProgram;
+    appArgs;
+    appAccounts;
+    appForeignApps;
+    appForeignAssets;
+    boxes;
+    type;
+    flatFee;
+    reKeyTo;
+    nonParticipation;
+    group;
+    extraPages;
+    stateProofType;
+    stateProof;
+    stateProofMessage;
     constructor({ ...transaction }) {
-        this.name = 'Transaction';
-        this.tag = Buffer.from('TX');
         // Populate defaults
         /* eslint-disable no-param-reassign */
         const defaults = {

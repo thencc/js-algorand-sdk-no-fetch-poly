@@ -20,6 +20,10 @@ function isBaseHTTPClient(tbc) {
  * Abstract service client to encapsulate shared AlgodClient and IndexerClient logic
  */
 export default class ServiceClient {
+    /** @ignore */
+    c;
+    /** @ignore */
+    intDecoding;
     constructor(tokenHeaderIdentifier, tokenHeaderOrStrOrBaseClient, baseServer, port, defaultHeaders = {}) {
         if (isBaseHTTPClient(tokenHeaderOrStrOrBaseClient)) {
             // we are using a base client

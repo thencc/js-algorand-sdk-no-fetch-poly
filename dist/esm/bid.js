@@ -7,9 +7,15 @@ import * as utils from './utils/utils';
  * Bid enables construction of Algorand Auctions Bids
  * */
 export default class Bid {
+    name = 'Bid';
+    tag = Buffer.from([97, 66]); // "aB"
+    bidderKey;
+    bidAmount;
+    bidID;
+    auctionKey;
+    auctionID;
+    maxPrice;
     constructor({ bidderKey, bidAmount, bidID, auctionKey, auctionID, maxPrice, }) {
-        this.name = 'Bid';
-        this.tag = Buffer.from([97, 66]); // "aB"
         const decodedBidderKey = address.decodeAddress(bidderKey);
         const decodedAuctionKey = address.decodeAddress(auctionKey);
         if (!Number.isSafeInteger(bidAmount) || bidAmount < 0)

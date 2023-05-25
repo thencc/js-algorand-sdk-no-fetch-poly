@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 const types_1 = require("./models/types");
 class GetTransactionGroupLedgerStateDeltasForRound extends jsonrequest_1.default {
+    round;
     constructor(c, intDecoding, round) {
         super(c, intDecoding);
         this.round = round;

@@ -18,6 +18,135 @@ const basemodel_1 = __importDefault(require("../../basemodel"));
  */
 class Account extends basemodel_1.default {
     /**
+     * the account public key
+     */
+    address;
+    /**
+     * (algo) total number of MicroAlgos in the account
+     */
+    amount;
+    /**
+     * specifies the amount of MicroAlgos in the account, without the pending rewards.
+     */
+    amountWithoutPendingRewards;
+    /**
+     * amount of MicroAlgos of pending rewards in this account.
+     */
+    pendingRewards;
+    /**
+     * (ern) total rewards of MicroAlgos the account has received, including pending
+     * rewards.
+     */
+    rewards;
+    /**
+     * The round for which this information is relevant.
+     */
+    round;
+    /**
+     * (onl) delegation status of the account's MicroAlgos
+     * * Offline - indicates that the associated account is delegated.
+     * * Online - indicates that the associated account used as part of the delegation
+     * pool.
+     * * NotParticipating - indicates that the associated account is neither a
+     * delegator nor a delegate.
+     */
+    status;
+    /**
+     * The count of all applications that have been opted in, equivalent to the count
+     * of application local data (AppLocalState objects) stored in this account.
+     */
+    totalAppsOptedIn;
+    /**
+     * The count of all assets that have been opted in, equivalent to the count of
+     * AssetHolding objects held by this account.
+     */
+    totalAssetsOptedIn;
+    /**
+     * For app-accounts only. The total number of bytes allocated for the keys and
+     * values of boxes which belong to the associated application.
+     */
+    totalBoxBytes;
+    /**
+     * For app-accounts only. The total number of boxes which belong to the associated
+     * application.
+     */
+    totalBoxes;
+    /**
+     * The count of all apps (AppParams objects) created by this account.
+     */
+    totalCreatedApps;
+    /**
+     * The count of all assets (AssetParams objects) created by this account.
+     */
+    totalCreatedAssets;
+    /**
+     * (appl) applications local data stored in this account.
+     * Note the raw object uses `map[int] -> AppLocalState` for this type.
+     */
+    appsLocalState;
+    /**
+     * (teap) the sum of all extra application program pages for this account.
+     */
+    appsTotalExtraPages;
+    /**
+     * (tsch) stores the sum of all of the local schemas and global schemas in this
+     * account.
+     * Note: the raw account uses `StateSchema` for this type.
+     */
+    appsTotalSchema;
+    /**
+     * (asset) assets held by this account.
+     * Note the raw object uses `map[int] -> AssetHolding` for this type.
+     */
+    assets;
+    /**
+     * (spend) the address against which signing should be checked. If empty, the
+     * address of the current account is used. This field can be updated in any
+     * transaction by setting the RekeyTo field.
+     */
+    authAddr;
+    /**
+     * Round during which this account was most recently closed.
+     */
+    closedAtRound;
+    /**
+     * (appp) parameters of applications created by this account including app global
+     * data.
+     * Note: the raw account uses `map[int] -> AppParams` for this type.
+     */
+    createdApps;
+    /**
+     * (apar) parameters of assets created by this account.
+     * Note: the raw account uses `map[int] -> Asset` for this type.
+     */
+    createdAssets;
+    /**
+     * Round during which this account first appeared in a transaction.
+     */
+    createdAtRound;
+    /**
+     * Whether or not this account is currently closed.
+     */
+    deleted;
+    /**
+     * AccountParticipation describes the parameters used by this account in consensus
+     * protocol.
+     */
+    participation;
+    /**
+     * (ebase) used as part of the rewards computation. Only applicable to accounts
+     * which are participating.
+     */
+    rewardBase;
+    /**
+     * Indicates what type of signature is used by this account, must be one of:
+     * * sig
+     * * msig
+     * * lsig
+     * * or null if unknown
+     */
+    sigType;
+    /**
      * Creates a new `Account` object.
      * @param address - the account public key
      * @param amount - (algo) total number of MicroAlgos in the account
@@ -207,6 +336,31 @@ exports.Account = Account;
  */
 class AccountParticipation extends basemodel_1.default {
     /**
+     * (sel) Selection public key (if any) currently registered for this round.
+     */
+    selectionParticipationKey;
+    /**
+     * (voteFst) First round for which this participation is valid.
+     */
+    voteFirstValid;
+    /**
+     * (voteKD) Number of subkeys in each batch of participation keys.
+     */
+    voteKeyDilution;
+    /**
+     * (voteLst) Last round for which this participation is valid.
+     */
+    voteLastValid;
+    /**
+     * (vote) root participation public key (if any) currently registered for this
+     * round.
+     */
+    voteParticipationKey;
+    /**
+     * (stprf) Root of the state proof key (if any)
+     */
+    stateProofKey;
+    /**
      * Creates a new `AccountParticipation` object.
      * @param selectionParticipationKey - (sel) Selection public key (if any) currently registered for this round.
      * @param voteFirstValid - (voteFst) First round for which this participation is valid.
@@ -272,6 +426,16 @@ exports.AccountParticipation = AccountParticipation;
  */
 class AccountResponse extends basemodel_1.default {
     /**
+     * Account information at a given round.
+     * Definition:
+     * data/basics/userBalance.go : AccountData
+     */
+    account;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
      * Creates a new `AccountResponse` object.
      * @param account - Account information at a given round.
      * Definition:
@@ -306,6 +470,11 @@ exports.AccountResponse = AccountResponse;
  * Application state delta.
  */
 class AccountStateDelta extends basemodel_1.default {
+    address;
+    /**
+     * Application state delta.
+     */
+    delta;
     /**
      * Creates a new `AccountStateDelta` object.
      * @param address -
@@ -339,6 +508,16 @@ exports.AccountStateDelta = AccountStateDelta;
  *
  */
 class AccountsResponse extends basemodel_1.default {
+    accounts;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `AccountsResponse` object.
      * @param accounts -
@@ -377,6 +556,26 @@ exports.AccountsResponse = AccountsResponse;
  * Application index and its parameters
  */
 class Application extends basemodel_1.default {
+    /**
+     * (appidx) application index.
+     */
+    id;
+    /**
+     * (appparams) application parameters.
+     */
+    params;
+    /**
+     * Round when this application was created.
+     */
+    createdAtRound;
+    /**
+     * Whether or not this application is currently deleted.
+     */
+    deleted;
+    /**
+     * Round when this application was deleted.
+     */
+    deletedAtRound;
     /**
      * Creates a new `Application` object.
      * @param id - (appidx) application index.
@@ -422,6 +621,31 @@ exports.Application = Application;
  * Stores local state associated with an application.
  */
 class ApplicationLocalState extends basemodel_1.default {
+    /**
+     * The application which this local state is for.
+     */
+    id;
+    /**
+     * (hsch) schema.
+     */
+    schema;
+    /**
+     * Round when account closed out of the application.
+     */
+    closedOutAtRound;
+    /**
+     * Whether or not the application local state is currently deleted from its
+     * account.
+     */
+    deleted;
+    /**
+     * (tkv) storage.
+     */
+    keyValue;
+    /**
+     * Round when the account opted into the application.
+     */
+    optedInAtRound;
     /**
      * Creates a new `ApplicationLocalState` object.
      * @param id - The application which this local state is for.
@@ -474,6 +698,16 @@ exports.ApplicationLocalState = ApplicationLocalState;
  *
  */
 class ApplicationLocalStatesResponse extends basemodel_1.default {
+    appsLocalStates;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `ApplicationLocalStatesResponse` object.
      * @param appsLocalStates -
@@ -513,6 +747,14 @@ exports.ApplicationLocalStatesResponse = ApplicationLocalStatesResponse;
  */
 class ApplicationLogData extends basemodel_1.default {
     /**
+     * (lg) Logs for the application being executed by the transaction.
+     */
+    logs;
+    /**
+     * Transaction ID
+     */
+    txid;
+    /**
      * Creates a new `ApplicationLogData` object.
      * @param logs - (lg) Logs for the application being executed by the transaction.
      * @param txid - Transaction ID
@@ -545,6 +787,20 @@ exports.ApplicationLogData = ApplicationLogData;
  *
  */
 class ApplicationLogsResponse extends basemodel_1.default {
+    /**
+     * (appidx) application index.
+     */
+    applicationId;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    logData;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `ApplicationLogsResponse` object.
      * @param applicationId - (appidx) application index.
@@ -589,6 +845,35 @@ exports.ApplicationLogsResponse = ApplicationLogsResponse;
  * Stores the global information associated with an application.
  */
 class ApplicationParams extends basemodel_1.default {
+    /**
+     * (approv) approval program.
+     */
+    approvalProgram;
+    /**
+     * (clearp) approval program.
+     */
+    clearStateProgram;
+    /**
+     * The address that created this application. This is the address where the
+     * parameters and global state for this application can be found.
+     */
+    creator;
+    /**
+     * (epp) the amount of extra program pages available to this app.
+     */
+    extraProgramPages;
+    /**
+     * [\gs) global schema
+     */
+    globalState;
+    /**
+     * [\gsch) global schema
+     */
+    globalStateSchema;
+    /**
+     * [\lsch) local schema
+     */
+    localStateSchema;
     /**
      * Creates a new `ApplicationParams` object.
      * @param approvalProgram - (approv) approval program.
@@ -656,6 +941,14 @@ exports.ApplicationParams = ApplicationParams;
  */
 class ApplicationResponse extends basemodel_1.default {
     /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Application index and its parameters
+     */
+    application;
+    /**
      * Creates a new `ApplicationResponse` object.
      * @param currentRound - Round at which the results were computed.
      * @param application - Application index and its parameters
@@ -689,6 +982,14 @@ exports.ApplicationResponse = ApplicationResponse;
  */
 class ApplicationStateSchema extends basemodel_1.default {
     /**
+     * (nbs) num of byte slices.
+     */
+    numByteSlice;
+    /**
+     * (nui) num of uints.
+     */
+    numUint;
+    /**
      * Creates a new `ApplicationStateSchema` object.
      * @param numByteSlice - (nbs) num of byte slices.
      * @param numUint - (nui) num of uints.
@@ -721,6 +1022,16 @@ exports.ApplicationStateSchema = ApplicationStateSchema;
  *
  */
 class ApplicationsResponse extends basemodel_1.default {
+    applications;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `ApplicationsResponse` object.
      * @param applications -
@@ -759,6 +1070,29 @@ exports.ApplicationsResponse = ApplicationsResponse;
  * Specifies both the unique identifier and the parameters for an asset
  */
 class Asset extends basemodel_1.default {
+    /**
+     * unique asset identifier
+     */
+    index;
+    /**
+     * AssetParams specifies the parameters for an asset.
+     * (apar) when part of an AssetConfig transaction.
+     * Definition:
+     * data/transactions/asset.go : AssetParams
+     */
+    params;
+    /**
+     * Round during which this asset was created.
+     */
+    createdAtRound;
+    /**
+     * Whether or not this asset is currently deleted.
+     */
+    deleted;
+    /**
+     * Round during which this asset was destroyed.
+     */
+    destroyedAtRound;
     /**
      * Creates a new `Asset` object.
      * @param index - unique asset identifier
@@ -807,6 +1141,16 @@ exports.Asset = Asset;
  *
  */
 class AssetBalancesResponse extends basemodel_1.default {
+    balances;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `AssetBalancesResponse` object.
      * @param balances -
@@ -847,6 +1191,30 @@ exports.AssetBalancesResponse = AssetBalancesResponse;
  * data/basics/userBalance.go : AssetHolding
  */
 class AssetHolding extends basemodel_1.default {
+    /**
+     * (a) number of units held.
+     */
+    amount;
+    /**
+     * Asset ID of the holding.
+     */
+    assetId;
+    /**
+     * (f) whether or not the holding is frozen.
+     */
+    isFrozen;
+    /**
+     * Whether or not the asset holding is currently deleted from its account.
+     */
+    deleted;
+    /**
+     * Round during which the account opted into this asset holding.
+     */
+    optedInAtRound;
+    /**
+     * Round during which the account opted out of this asset holding.
+     */
+    optedOutAtRound;
     /**
      * Creates a new `AssetHolding` object.
      * @param amount - (a) number of units held.
@@ -898,6 +1266,16 @@ exports.AssetHolding = AssetHolding;
  *
  */
 class AssetHoldingsResponse extends basemodel_1.default {
+    assets;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `AssetHoldingsResponse` object.
      * @param assets -
@@ -939,6 +1317,77 @@ exports.AssetHoldingsResponse = AssetHoldingsResponse;
  * data/transactions/asset.go : AssetParams
  */
 class AssetParams extends basemodel_1.default {
+    /**
+     * The address that created this asset. This is the address where the parameters
+     * for this asset can be found, and also the address where unwanted asset units can
+     * be sent in the worst case.
+     */
+    creator;
+    /**
+     * (dc) The number of digits to use after the decimal point when displaying this
+     * asset. If 0, the asset is not divisible. If 1, the base unit of the asset is in
+     * tenths. If 2, the base unit of the asset is in hundredths, and so on. This value
+     * must be between 0 and 19 (inclusive).
+     */
+    decimals;
+    /**
+     * (t) The total number of units of this asset.
+     */
+    total;
+    /**
+     * (c) Address of account used to clawback holdings of this asset. If empty,
+     * clawback is not permitted.
+     */
+    clawback;
+    /**
+     * (df) Whether holdings of this asset are frozen by default.
+     */
+    defaultFrozen;
+    /**
+     * (f) Address of account used to freeze holdings of this asset. If empty, freezing
+     * is not permitted.
+     */
+    freeze;
+    /**
+     * (m) Address of account used to manage the keys of this asset and to destroy it.
+     */
+    manager;
+    /**
+     * (am) A commitment to some unspecified asset metadata. The format of this
+     * metadata is up to the application.
+     */
+    metadataHash;
+    /**
+     * (an) Name of this asset, as supplied by the creator. Included only when the
+     * asset name is composed of printable utf-8 characters.
+     */
+    name;
+    /**
+     * Base64 encoded name of this asset, as supplied by the creator.
+     */
+    nameB64;
+    /**
+     * (r) Address of account holding reserve (non-minted) units of this asset.
+     */
+    reserve;
+    /**
+     * (un) Name of a unit of this asset, as supplied by the creator. Included only
+     * when the name of a unit of this asset is composed of printable utf-8 characters.
+     */
+    unitName;
+    /**
+     * Base64 encoded name of a unit of this asset, as supplied by the creator.
+     */
+    unitNameB64;
+    /**
+     * (au) URL where more information about the asset can be retrieved. Included only
+     * when the URL is composed of printable utf-8 characters.
+     */
+    url;
+    /**
+     * Base64 encoded URL where more information about the asset can be retrieved.
+     */
+    urlB64;
     /**
      * Creates a new `AssetParams` object.
      * @param creator - The address that created this asset. This is the address where the parameters
@@ -1050,6 +1499,14 @@ exports.AssetParams = AssetParams;
  */
 class AssetResponse extends basemodel_1.default {
     /**
+     * Specifies both the unique identifier and the parameters for an asset
+     */
+    asset;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
      * Creates a new `AssetResponse` object.
      * @param asset - Specifies both the unique identifier and the parameters for an asset
      * @param currentRound - Round at which the results were computed.
@@ -1082,6 +1539,16 @@ exports.AssetResponse = AssetResponse;
  *
  */
 class AssetsResponse extends basemodel_1.default {
+    assets;
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `AssetsResponse` object.
      * @param assets -
@@ -1122,6 +1589,78 @@ exports.AssetsResponse = AssetsResponse;
  * data/bookkeeping/block.go : Block
  */
 class Block extends basemodel_1.default {
+    /**
+     * (gh) hash to which this block belongs.
+     */
+    genesisHash;
+    /**
+     * (gen) ID to which this block belongs.
+     */
+    genesisId;
+    /**
+     * (prev) Previous block hash.
+     */
+    previousBlockHash;
+    /**
+     * (rnd) Current round on which this block was appended to the chain.
+     */
+    round;
+    /**
+     * (seed) Sortition seed.
+     */
+    seed;
+    /**
+     * (ts) Block creation timestamp in seconds since eposh
+     */
+    timestamp;
+    /**
+     * (txn) TransactionsRoot authenticates the set of transactions appearing in the
+     * block. More specifically, it's the root of a merkle tree whose leaves are the
+     * block's Txids, in lexicographic order. For the empty block, it's 0. Note that
+     * the TxnRoot does not authenticate the signatures on the transactions, only the
+     * transactions themselves. Two blocks with the same transactions but in a
+     * different order and with different signatures will have the same TxnRoot.
+     */
+    transactionsRoot;
+    /**
+     * (txn256) TransactionsRootSHA256 is an auxiliary TransactionRoot, built using a
+     * vector commitment instead of a merkle tree, and SHA256 hash function instead of
+     * the default SHA512_256. This commitment can be used on environments where only
+     * the SHA256 function exists.
+     */
+    transactionsRootSha256;
+    /**
+     * Participation account data that needs to be checked/acted on by the network.
+     */
+    participationUpdates;
+    /**
+     * Fields relating to rewards,
+     */
+    rewards;
+    /**
+     * Tracks the status of state proofs.
+     */
+    stateProofTracking;
+    /**
+     * (txns) list of transactions corresponding to a given round.
+     */
+    transactions;
+    /**
+     * (tc) TxnCounter counts the number of transactions committed in the ledger, from
+     * the time at which support for this feature was introduced.
+     * Specifically, TxnCounter is the number of the next transaction that will be
+     * committed after this block. It is 0 when no transactions have ever been
+     * committed (since TxnCounter started being supported).
+     */
+    txnCounter;
+    /**
+     * Fields relating to a protocol upgrade.
+     */
+    upgradeState;
+    /**
+     * Fields relating to voting for a protocol upgrade.
+     */
+    upgradeVote;
     /**
      * Creates a new `Block` object.
      * @param genesisHash - (gh) hash to which this block belongs.
@@ -1259,6 +1798,35 @@ exports.Block = Block;
  */
 class BlockRewards extends basemodel_1.default {
     /**
+     * (fees) accepts transaction fees, it can only spend to the incentive pool.
+     */
+    feeSink;
+    /**
+     * (rwcalr) number of leftover MicroAlgos after the distribution of rewards-rate
+     * MicroAlgos for every reward unit in the next round.
+     */
+    rewardsCalculationRound;
+    /**
+     * (earn) How many rewards, in MicroAlgos, have been distributed to each RewardUnit
+     * of MicroAlgos since genesis.
+     */
+    rewardsLevel;
+    /**
+     * (rwd) accepts periodic injections from the fee-sink and continually
+     * redistributes them as rewards.
+     */
+    rewardsPool;
+    /**
+     * (rate) Number of new MicroAlgos added to the participation stake from rewards at
+     * the next round.
+     */
+    rewardsRate;
+    /**
+     * (frac) Number of leftover MicroAlgos after the distribution of
+     * RewardsRate/rewardUnits MicroAlgos for every reward unit in the next round.
+     */
+    rewardsResidue;
+    /**
      * Creates a new `BlockRewards` object.
      * @param feeSink - (fees) accepts transaction fees, it can only spend to the incentive pool.
      * @param rewardsCalculationRound - (rwcalr) number of leftover MicroAlgos after the distribution of rewards-rate
@@ -1321,6 +1889,27 @@ exports.BlockRewards = BlockRewards;
  */
 class BlockUpgradeState extends basemodel_1.default {
     /**
+     * (proto) The current protocol version.
+     */
+    currentProtocol;
+    /**
+     * (nextproto) The next proposed protocol version.
+     */
+    nextProtocol;
+    /**
+     * (nextyes) Number of blocks which approved the protocol upgrade.
+     */
+    nextProtocolApprovals;
+    /**
+     * (nextswitch) Round on which the protocol upgrade will take effect.
+     */
+    nextProtocolSwitchOn;
+    /**
+     * (nextbefore) Deadline round for this protocol upgrade (No votes will be consider
+     * after this round).
+     */
+    nextProtocolVoteBefore;
+    /**
      * Creates a new `BlockUpgradeState` object.
      * @param currentProtocol - (proto) The current protocol version.
      * @param nextProtocol - (nextproto) The next proposed protocol version.
@@ -1365,6 +1954,18 @@ exports.BlockUpgradeState = BlockUpgradeState;
  */
 class BlockUpgradeVote extends basemodel_1.default {
     /**
+     * (upgradeyes) Indicates a yes vote for the current proposal.
+     */
+    upgradeApprove;
+    /**
+     * (upgradedelay) Indicates the time between acceptance and execution.
+     */
+    upgradeDelay;
+    /**
+     * (upgradeprop) Indicates a proposed upgrade.
+     */
+    upgradePropose;
+    /**
      * Creates a new `BlockUpgradeVote` object.
      * @param upgradeApprove - (upgradeyes) Indicates a yes vote for the current proposal.
      * @param upgradeDelay - (upgradedelay) Indicates the time between acceptance and execution.
@@ -1397,6 +1998,14 @@ exports.BlockUpgradeVote = BlockUpgradeVote;
  * Box name and its content.
  */
 class Box extends basemodel_1.default {
+    /**
+     * (name) box name, base64 encoded
+     */
+    name;
+    /**
+     * (value) box value, base64 encoded.
+     */
+    value;
     /**
      * Creates a new `Box` object.
      * @param name - (name) box name, base64 encoded
@@ -1437,6 +2046,10 @@ exports.Box = Box;
  */
 class BoxDescriptor extends basemodel_1.default {
     /**
+     * Base64 encoded box name
+     */
+    name;
+    /**
      * Creates a new `BoxDescriptor` object.
      * @param name - Base64 encoded box name
      */
@@ -1466,6 +2079,16 @@ exports.BoxDescriptor = BoxDescriptor;
  * Box names of an application
  */
 class BoxesResponse extends basemodel_1.default {
+    /**
+     * (appidx) application index.
+     */
+    applicationId;
+    boxes;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `BoxesResponse` object.
      * @param applicationId - (appidx) application index.
@@ -1504,6 +2127,8 @@ exports.BoxesResponse = BoxesResponse;
  * Response for errors
  */
 class ErrorResponse extends basemodel_1.default {
+    message;
+    data;
     /**
      * Creates a new `ErrorResponse` object.
      * @param message -
@@ -1535,6 +2160,18 @@ exports.ErrorResponse = ErrorResponse;
  * Represents a TEAL value delta.
  */
 class EvalDelta extends basemodel_1.default {
+    /**
+     * (at) delta action.
+     */
+    action;
+    /**
+     * (bs) bytes value.
+     */
+    bytes;
+    /**
+     * (ui) uint value.
+     */
+    uint;
     /**
      * Creates a new `EvalDelta` object.
      * @param action - (at) delta action.
@@ -1570,6 +2207,11 @@ exports.EvalDelta = EvalDelta;
  * Key-value pairs for StateDelta.
  */
 class EvalDeltaKeyValue extends basemodel_1.default {
+    key;
+    /**
+     * Represents a TEAL value delta.
+     */
+    value;
     /**
      * Creates a new `EvalDeltaKeyValue` object.
      * @param key -
@@ -1601,6 +2243,10 @@ class EvalDeltaKeyValue extends basemodel_1.default {
 exports.EvalDeltaKeyValue = EvalDeltaKeyValue;
 class HashFactory extends basemodel_1.default {
     /**
+     * (t)
+     */
+    hashType;
+    /**
      * Creates a new `HashFactory` object.
      * @param hashType - (t)
      */
@@ -1625,6 +2271,16 @@ exports.HashFactory = HashFactory;
  * A health check response.
  */
 class HealthCheck extends basemodel_1.default {
+    dbAvailable;
+    isMigrating;
+    message;
+    round;
+    /**
+     * Current version.
+     */
+    version;
+    data;
+    errors;
     /**
      * Creates a new `HealthCheck` object.
      * @param dbAvailable -
@@ -1682,6 +2338,26 @@ class HealthCheck extends basemodel_1.default {
 exports.HealthCheck = HealthCheck;
 class IndexerStateProofMessage extends basemodel_1.default {
     /**
+     * (b)
+     */
+    blockHeadersCommitment;
+    /**
+     * (f)
+     */
+    firstAttestedRound;
+    /**
+     * (l)
+     */
+    latestAttestedRound;
+    /**
+     * (P)
+     */
+    lnProvenWeight;
+    /**
+     * (v)
+     */
+    votersCommitment;
+    /**
      * Creates a new `IndexerStateProofMessage` object.
      * @param blockHeadersCommitment - (b)
      * @param firstAttestedRound - (f)
@@ -1725,6 +2401,15 @@ class IndexerStateProofMessage extends basemodel_1.default {
 }
 exports.IndexerStateProofMessage = IndexerStateProofMessage;
 class MerkleArrayProof extends basemodel_1.default {
+    hashFactory;
+    /**
+     * (pth)
+     */
+    path;
+    /**
+     * (td)
+     */
+    treeDepth;
     /**
      * Creates a new `MerkleArrayProof` object.
      * @param hashFactory -
@@ -1760,6 +2445,21 @@ exports.MerkleArrayProof = MerkleArrayProof;
  * A simplified version of AssetHolding
  */
 class MiniAssetHolding extends basemodel_1.default {
+    address;
+    amount;
+    isFrozen;
+    /**
+     * Whether or not this asset holding is currently deleted from its account.
+     */
+    deleted;
+    /**
+     * Round during which the account opted into the asset.
+     */
+    optedInAtRound;
+    /**
+     * Round during which the account opted out of the asset.
+     */
+    optedOutAtRound;
     /**
      * Creates a new `MiniAssetHolding` object.
      * @param address -
@@ -1812,6 +2512,11 @@ exports.MiniAssetHolding = MiniAssetHolding;
  */
 class ParticipationUpdates extends basemodel_1.default {
     /**
+     * (partupdrmv) a list of online accounts that needs to be converted to offline
+     * since their participation key expired.
+     */
+    expiredParticipationAccounts;
+    /**
      * Creates a new `ParticipationUpdates` object.
      * @param expiredParticipationAccounts - (partupdrmv) a list of online accounts that needs to be converted to offline
      * since their participation key expired.
@@ -1839,6 +2544,35 @@ exports.ParticipationUpdates = ParticipationUpdates;
  * crypto/stateproof/structs.go : StateProof
  */
 class StateProofFields extends basemodel_1.default {
+    /**
+     * (P)
+     */
+    partProofs;
+    /**
+     * (pr) Sequence of reveal positions.
+     */
+    positionsToReveal;
+    /**
+     * (r) Note that this is actually stored as a map[uint64] - Reveal in the actual
+     * msgp
+     */
+    reveals;
+    /**
+     * (v) Salt version of the merkle signature.
+     */
+    saltVersion;
+    /**
+     * (c)
+     */
+    sigCommit;
+    /**
+     * (S)
+     */
+    sigProofs;
+    /**
+     * (w)
+     */
+    signedWeight;
     /**
      * Creates a new `StateProofFields` object.
      * @param partProofs - (P)
@@ -1896,6 +2630,14 @@ class StateProofFields extends basemodel_1.default {
 exports.StateProofFields = StateProofFields;
 class StateProofParticipant extends basemodel_1.default {
     /**
+     * (p)
+     */
+    verifier;
+    /**
+     * (w)
+     */
+    weight;
+    /**
      * Creates a new `StateProofParticipant` object.
      * @param verifier - (p)
      * @param weight - (w)
@@ -1923,6 +2665,19 @@ class StateProofParticipant extends basemodel_1.default {
 }
 exports.StateProofParticipant = StateProofParticipant;
 class StateProofReveal extends basemodel_1.default {
+    /**
+     * (p)
+     */
+    participant;
+    /**
+     * The position in the signature and participants arrays corresponding to this
+     * entry.
+     */
+    position;
+    /**
+     * (s)
+     */
+    sigSlot;
     /**
      * Creates a new `StateProofReveal` object.
      * @param participant - (p)
@@ -1959,6 +2714,11 @@ class StateProofReveal extends basemodel_1.default {
 exports.StateProofReveal = StateProofReveal;
 class StateProofSigSlot extends basemodel_1.default {
     /**
+     * (l) The total weight of signatures in the lower-numbered slots.
+     */
+    lowerSigWeight;
+    signature;
+    /**
      * Creates a new `StateProofSigSlot` object.
      * @param lowerSigWeight - (l) The total weight of signatures in the lower-numbered slots.
      * @param signature -
@@ -1986,6 +2746,13 @@ class StateProofSigSlot extends basemodel_1.default {
 }
 exports.StateProofSigSlot = StateProofSigSlot;
 class StateProofSignature extends basemodel_1.default {
+    falconSignature;
+    merkleArrayIndex;
+    proof;
+    /**
+     * (vkey)
+     */
+    verifyingKey;
     /**
      * Creates a new `StateProofSignature` object.
      * @param falconSignature -
@@ -2029,6 +2796,24 @@ class StateProofSignature extends basemodel_1.default {
 exports.StateProofSignature = StateProofSignature;
 class StateProofTracking extends basemodel_1.default {
     /**
+     * (n) Next round for which we will accept a state proof transaction.
+     */
+    nextRound;
+    /**
+     * (t) The total number of microalgos held by the online accounts during the
+     * StateProof round.
+     */
+    onlineTotalWeight;
+    /**
+     * State Proof Type. Note the raw object uses map with this as key.
+     */
+    type;
+    /**
+     * (v) Root of a vector commitment containing online accounts that will help sign
+     * the proof.
+     */
+    votersCommitment;
+    /**
      * Creates a new `StateProofTracking` object.
      * @param nextRound - (n) Next round for which we will accept a state proof transaction.
      * @param onlineTotalWeight - (t) The total number of microalgos held by the online accounts during the
@@ -2068,6 +2853,14 @@ class StateProofTracking extends basemodel_1.default {
 exports.StateProofTracking = StateProofTracking;
 class StateProofVerifier extends basemodel_1.default {
     /**
+     * (cmt) Represents the root of the vector commitment tree.
+     */
+    commitment;
+    /**
+     * (lf) Key lifetime.
+     */
+    keyLifetime;
+    /**
      * Creates a new `StateProofVerifier` object.
      * @param commitment - (cmt) Represents the root of the vector commitment tree.
      * @param keyLifetime - (lf) Key lifetime.
@@ -2103,6 +2896,14 @@ exports.StateProofVerifier = StateProofVerifier;
  */
 class StateSchema extends basemodel_1.default {
     /**
+     * Maximum number of TEAL byte slices that may be stored in the key/value store.
+     */
+    numByteSlice;
+    /**
+     * Maximum number of TEAL uints that may be stored in the key/value store.
+     */
+    numUint;
+    /**
      * Creates a new `StateSchema` object.
      * @param numByteSlice - Maximum number of TEAL byte slices that may be stored in the key/value store.
      * @param numUint - Maximum number of TEAL uints that may be stored in the key/value store.
@@ -2135,6 +2936,11 @@ exports.StateSchema = StateSchema;
  * Represents a key-value pair in an application store.
  */
 class TealKeyValue extends basemodel_1.default {
+    key;
+    /**
+     * Represents a TEAL value.
+     */
+    value;
     /**
      * Creates a new `TealKeyValue` object.
      * @param key -
@@ -2168,6 +2974,18 @@ exports.TealKeyValue = TealKeyValue;
  * Represents a TEAL value.
  */
 class TealValue extends basemodel_1.default {
+    /**
+     * (tb) bytes value.
+     */
+    bytes;
+    /**
+     * (tt) value type. Value `1` refers to **bytes**, value `2` refers to **uint**
+     */
+    type;
+    /**
+     * (ui) uint value.
+     */
+    uint;
     /**
      * Creates a new `TealValue` object.
      * @param bytes - (tb) bytes value.
@@ -2211,6 +3029,181 @@ exports.TealValue = TealValue;
  * data/transactions/transaction.go : Transaction
  */
 class Transaction extends basemodel_1.default {
+    /**
+     * (fee) Transaction fee.
+     */
+    fee;
+    /**
+     * (fv) First valid round for this transaction.
+     */
+    firstValid;
+    /**
+     * (lv) Last valid round for this transaction.
+     */
+    lastValid;
+    /**
+     * (snd) Sender's address.
+     */
+    sender;
+    /**
+     * Fields for application transactions.
+     * Definition:
+     * data/transactions/application.go : ApplicationCallTxnFields
+     */
+    applicationTransaction;
+    /**
+     * Fields for asset allocation, re-configuration, and destruction.
+     * A zero value for asset-id indicates asset creation.
+     * A zero value for the params indicates asset destruction.
+     * Definition:
+     * data/transactions/asset.go : AssetConfigTxnFields
+     */
+    assetConfigTransaction;
+    /**
+     * Fields for an asset freeze transaction.
+     * Definition:
+     * data/transactions/asset.go : AssetFreezeTxnFields
+     */
+    assetFreezeTransaction;
+    /**
+     * Fields for an asset transfer transaction.
+     * Definition:
+     * data/transactions/asset.go : AssetTransferTxnFields
+     */
+    assetTransferTransaction;
+    /**
+     * (sgnr) this is included with signed transactions when the signing address does
+     * not equal the sender. The backend can use this to ensure that auth addr is equal
+     * to the accounts auth addr.
+     */
+    authAddr;
+    /**
+     * (rc) rewards applied to close-remainder-to account.
+     */
+    closeRewards;
+    /**
+     * (ca) closing amount for transaction.
+     */
+    closingAmount;
+    /**
+     * Round when the transaction was confirmed.
+     */
+    confirmedRound;
+    /**
+     * Specifies an application index (ID) if an application was created with this
+     * transaction.
+     */
+    createdApplicationIndex;
+    /**
+     * Specifies an asset index (ID) if an asset was created with this transaction.
+     */
+    createdAssetIndex;
+    /**
+     * (gh) Hash of genesis block.
+     */
+    genesisHash;
+    /**
+     * (gen) genesis block ID.
+     */
+    genesisId;
+    /**
+     * (gd) Global state key/value changes for the application being executed by this
+     * transaction.
+     */
+    globalStateDelta;
+    /**
+     * (grp) Base64 encoded byte array of a sha512/256 digest. When present indicates
+     * that this transaction is part of a transaction group and the value is the
+     * sha512/256 hash of the transactions in that group.
+     */
+    group;
+    /**
+     * Transaction ID
+     */
+    id;
+    /**
+     * Inner transactions produced by application execution.
+     */
+    innerTxns;
+    /**
+     * Offset into the round where this transaction was confirmed.
+     */
+    intraRoundOffset;
+    /**
+     * Fields for a keyreg transaction.
+     * Definition:
+     * data/transactions/keyreg.go : KeyregTxnFields
+     */
+    keyregTransaction;
+    /**
+     * (lx) Base64 encoded 32-byte array. Lease enforces mutual exclusion of
+     * transactions. If this field is nonzero, then once the transaction is confirmed,
+     * it acquires the lease identified by the (Sender, Lease) pair of the transaction
+     * until the LastValid round passes. While this transaction possesses the lease, no
+     * other transaction specifying this lease can be confirmed.
+     */
+    lease;
+    /**
+     * (ld) Local state key/value changes for the application being executed by this
+     * transaction.
+     */
+    localStateDelta;
+    /**
+     * (lg) Logs for the application being executed by this transaction.
+     */
+    logs;
+    /**
+     * (note) Free form data.
+     */
+    note;
+    /**
+     * Fields for a payment transaction.
+     * Definition:
+     * data/transactions/payment.go : PaymentTxnFields
+     */
+    paymentTransaction;
+    /**
+     * (rr) rewards applied to receiver account.
+     */
+    receiverRewards;
+    /**
+     * (rekey) when included in a valid transaction, the accounts auth addr will be
+     * updated with this value and future signatures must be signed with the key
+     * represented by this address.
+     */
+    rekeyTo;
+    /**
+     * Time when the block this transaction is in was confirmed.
+     */
+    roundTime;
+    /**
+     * (rs) rewards applied to sender account.
+     */
+    senderRewards;
+    /**
+     * Validation signature associated with some data. Only one of the signatures
+     * should be provided.
+     */
+    signature;
+    /**
+     * Fields for a state proof transaction.
+     * Definition:
+     * data/transactions/stateproof.go : StateProofTxnFields
+     */
+    stateProofTransaction;
+    /**
+     * (type) Indicates what type of transaction this is. Different types have
+     * different fields.
+     * Valid types, and where their fields are stored:
+     * * (pay) payment-transaction
+     * * (keyreg) keyreg-transaction
+     * * (acfg) asset-config-transaction
+     * * (axfer) asset-transfer-transaction
+     * * (afrz) asset-freeze-transaction
+     * * (appl) application-transaction
+     * * (stpf) state-proof-transaction
+     */
+    txType;
     /**
      * Creates a new `Transaction` object.
      * @param fee - (fee) Transaction fee.
@@ -2452,6 +3445,75 @@ exports.Transaction = Transaction;
  */
 class TransactionApplication extends basemodel_1.default {
     /**
+     * (apid) ID of the application being configured or empty if creating.
+     */
+    applicationId;
+    /**
+     * (apat) List of accounts in addition to the sender that may be accessed from the
+     * application's approval-program and clear-state-program.
+     */
+    accounts;
+    /**
+     * (apaa) transaction specific arguments accessed from the application's
+     * approval-program and clear-state-program.
+     */
+    applicationArgs;
+    /**
+     * (apap) Logic executed for every application transaction, except when
+     * on-completion is set to "clear". It can read and write global state for the
+     * application, as well as account-specific local state. Approval programs may
+     * reject the transaction.
+     */
+    approvalProgram;
+    /**
+     * (apsu) Logic executed for application transactions with on-completion set to
+     * "clear". It can read and write global state for the application, as well as
+     * account-specific local state. Clear state programs cannot reject the
+     * transaction.
+     */
+    clearStateProgram;
+    /**
+     * (epp) specifies the additional app program len requested in pages.
+     */
+    extraProgramPages;
+    /**
+     * (apfa) Lists the applications in addition to the application-id whose global
+     * states may be accessed by this application's approval-program and
+     * clear-state-program. The access is read-only.
+     */
+    foreignApps;
+    /**
+     * (apas) lists the assets whose parameters may be accessed by this application's
+     * ApprovalProgram and ClearStateProgram. The access is read-only.
+     */
+    foreignAssets;
+    /**
+     * Represents a (apls) local-state or (apgs) global-state schema. These schemas
+     * determine how much storage may be used in a local-state or global-state for an
+     * application. The more space used, the larger minimum balance must be maintained
+     * in the account holding the data.
+     */
+    globalStateSchema;
+    /**
+     * Represents a (apls) local-state or (apgs) global-state schema. These schemas
+     * determine how much storage may be used in a local-state or global-state for an
+     * application. The more space used, the larger minimum balance must be maintained
+     * in the account holding the data.
+     */
+    localStateSchema;
+    /**
+     * (apan) defines the what additional actions occur with the transaction.
+     * Valid types:
+     * * noop
+     * * optin
+     * * closeout
+     * * clear
+     * * update
+     * * update
+     * * delete
+     */
+    onCompletion;
+    /**
      * Creates a new `TransactionApplication` object.
      * @param applicationId - (apid) ID of the application being configured or empty if creating.
      * @param accounts - (apat) List of accounts in addition to the sender that may be accessed from the
@@ -2558,6 +3620,17 @@ exports.TransactionApplication = TransactionApplication;
  */
 class TransactionAssetConfig extends basemodel_1.default {
     /**
+     * (xaid) ID of the asset being configured or empty if creating.
+     */
+    assetId;
+    /**
+     * AssetParams specifies the parameters for an asset.
+     * (apar) when part of an AssetConfig transaction.
+     * Definition:
+     * data/transactions/asset.go : AssetParams
+     */
+    params;
+    /**
      * Creates a new `TransactionAssetConfig` object.
      * @param assetId - (xaid) ID of the asset being configured or empty if creating.
      * @param params - AssetParams specifies the parameters for an asset.
@@ -2593,6 +3666,18 @@ exports.TransactionAssetConfig = TransactionAssetConfig;
  * data/transactions/asset.go : AssetFreezeTxnFields
  */
 class TransactionAssetFreeze extends basemodel_1.default {
+    /**
+     * (fadd) Address of the account whose asset is being frozen or thawed.
+     */
+    address;
+    /**
+     * (faid) ID of the asset being frozen or thawed.
+     */
+    assetId;
+    /**
+     * (afrz) The new freeze status.
+     */
+    newFreezeStatus;
     /**
      * Creates a new `TransactionAssetFreeze` object.
      * @param address - (fadd) Address of the account whose asset is being frozen or thawed.
@@ -2634,6 +3719,35 @@ exports.TransactionAssetFreeze = TransactionAssetFreeze;
  * data/transactions/asset.go : AssetTransferTxnFields
  */
 class TransactionAssetTransfer extends basemodel_1.default {
+    /**
+     * (aamt) Amount of asset to transfer. A zero amount transferred to self allocates
+     * that asset in the account's Assets map.
+     */
+    amount;
+    /**
+     * (xaid) ID of the asset being transferred.
+     */
+    assetId;
+    /**
+     * (arcv) Recipient address of the transfer.
+     */
+    receiver;
+    /**
+     * Number of assets transfered to the close-to account as part of the transaction.
+     */
+    closeAmount;
+    /**
+     * (aclose) Indicates that the asset should be removed from the account's Assets
+     * map, and specifies where the remaining asset holdings should be transferred.
+     * It's always valid to transfer remaining asset holdings to the creator account.
+     */
+    closeTo;
+    /**
+     * (asnd) The effective sender during a clawback transactions. If this is not a
+     * zero value, the real transaction sender must be the Clawback address from the
+     * AssetParams.
+     */
+    sender;
     /**
      * Creates a new `TransactionAssetTransfer` object.
      * @param amount - (aamt) Amount of asset to transfer. A zero amount transferred to self allocates
@@ -2692,6 +3806,35 @@ exports.TransactionAssetTransfer = TransactionAssetTransfer;
  * data/transactions/keyreg.go : KeyregTxnFields
  */
 class TransactionKeyreg extends basemodel_1.default {
+    /**
+     * (nonpart) Mark the account as participating or non-participating.
+     */
+    nonParticipation;
+    /**
+     * (selkey) Public key used with the Verified Random Function (VRF) result during
+     * committee selection.
+     */
+    selectionParticipationKey;
+    /**
+     * (sprfkey) State proof key used in key registration transactions.
+     */
+    stateProofKey;
+    /**
+     * (votefst) First round this participation key is valid.
+     */
+    voteFirstValid;
+    /**
+     * (votekd) Number of subkeys in each batch of participation keys.
+     */
+    voteKeyDilution;
+    /**
+     * (votelst) Last round this participation key is valid.
+     */
+    voteLastValid;
+    /**
+     * (votekey) Participation public key used in key registration transactions.
+     */
+    voteParticipationKey;
     /**
      * Creates a new `TransactionKeyreg` object.
      * @param nonParticipation - (nonpart) Mark the account as participating or non-participating.
@@ -2754,6 +3897,24 @@ exports.TransactionKeyreg = TransactionKeyreg;
  */
 class TransactionPayment extends basemodel_1.default {
     /**
+     * (amt) number of MicroAlgos intended to be transferred.
+     */
+    amount;
+    /**
+     * (rcv) receiver's address.
+     */
+    receiver;
+    /**
+     * Number of MicroAlgos that were sent to the close-remainder-to address when
+     * closing the sender account.
+     */
+    closeAmount;
+    /**
+     * (close) when set, indicates that the sending account should be closed and all
+     * remaining funds be transferred to this address.
+     */
+    closeRemainderTo;
+    /**
      * Creates a new `TransactionPayment` object.
      * @param amount - (amt) number of MicroAlgos intended to be transferred.
      * @param receiver - (rcv) receiver's address.
@@ -2797,6 +3958,18 @@ exports.TransactionPayment = TransactionPayment;
  */
 class TransactionResponse extends basemodel_1.default {
     /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    /**
+     * Contains all fields common to all transactions and serves as an envelope to all
+     * transactions type. Represents both regular and inner transactions.
+     * Definition:
+     * data/transactions/signedtxn.go : SignedTxn
+     * data/transactions/transaction.go : Transaction
+     */
+    transaction;
+    /**
      * Creates a new `TransactionResponse` object.
      * @param currentRound - Round at which the results were computed.
      * @param transaction - Contains all fields common to all transactions and serves as an envelope to all
@@ -2834,6 +4007,22 @@ exports.TransactionResponse = TransactionResponse;
  * should be provided.
  */
 class TransactionSignature extends basemodel_1.default {
+    /**
+     * (lsig) Programatic transaction signature.
+     * Definition:
+     * data/transactions/logicsig.go
+     */
+    logicsig;
+    /**
+     * (msig) structure holding multiple subsignatures.
+     * Definition:
+     * crypto/multisig.go : MultisigSig
+     */
+    multisig;
+    /**
+     * (sig) Standard ed25519 signature.
+     */
+    sig;
     /**
      * Creates a new `TransactionSignature` object.
      * @param logicsig - (lsig) Programatic transaction signature.
@@ -2880,6 +4069,25 @@ exports.TransactionSignature = TransactionSignature;
  * data/transactions/logicsig.go
  */
 class TransactionSignatureLogicsig extends basemodel_1.default {
+    /**
+     * (l) Program signed by a signature or multi signature, or hashed to be the
+     * address of ana ccount. Base64 encoded TEAL program.
+     */
+    logic;
+    /**
+     * (arg) Logic arguments, base64 encoded.
+     */
+    args;
+    /**
+     * (msig) structure holding multiple subsignatures.
+     * Definition:
+     * crypto/multisig.go : MultisigSig
+     */
+    multisigSignature;
+    /**
+     * (sig) ed25519 signature.
+     */
+    signature;
     /**
      * Creates a new `TransactionSignatureLogicsig` object.
      * @param logic - (l) Program signed by a signature or multi signature, or hashed to be the
@@ -2933,6 +4141,18 @@ exports.TransactionSignatureLogicsig = TransactionSignatureLogicsig;
  */
 class TransactionSignatureMultisig extends basemodel_1.default {
     /**
+     * (subsig) holds pairs of public key and signatures.
+     */
+    subsignature;
+    /**
+     * (thr)
+     */
+    threshold;
+    /**
+     * (v)
+     */
+    version;
+    /**
      * Creates a new `TransactionSignatureMultisig` object.
      * @param subsignature - (subsig) holds pairs of public key and signatures.
      * @param threshold - (thr)
@@ -2964,6 +4184,14 @@ class TransactionSignatureMultisig extends basemodel_1.default {
 }
 exports.TransactionSignatureMultisig = TransactionSignatureMultisig;
 class TransactionSignatureMultisigSubsignature extends basemodel_1.default {
+    /**
+     * (pk)
+     */
+    publicKey;
+    /**
+     * (s)
+     */
+    signature;
     /**
      * Creates a new `TransactionSignatureMultisigSubsignature` object.
      * @param publicKey - (pk)
@@ -3001,6 +4229,21 @@ exports.TransactionSignatureMultisigSubsignature = TransactionSignatureMultisigS
  * data/transactions/stateproof.go : StateProofTxnFields
  */
 class TransactionStateProof extends basemodel_1.default {
+    /**
+     * (spmsg)
+     */
+    message;
+    /**
+     * (sp) represents a state proof.
+     * Definition:
+     * crypto/stateproof/structs.go : StateProof
+     */
+    stateProof;
+    /**
+     * (sptype) Type of the state proof. Integer representing an entry defined in
+     * protocol/stateproof.go
+     */
+    stateProofType;
     /**
      * Creates a new `TransactionStateProof` object.
      * @param message - (spmsg)
@@ -3041,6 +4284,16 @@ exports.TransactionStateProof = TransactionStateProof;
  *
  */
 class TransactionsResponse extends basemodel_1.default {
+    /**
+     * Round at which the results were computed.
+     */
+    currentRound;
+    transactions;
+    /**
+     * Used for pagination, when making another request provide this token with the
+     * next parameter.
+     */
+    nextToken;
     /**
      * Creates a new `TransactionsResponse` object.
      * @param currentRound - Round at which the results were computed.

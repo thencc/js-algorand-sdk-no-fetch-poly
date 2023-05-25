@@ -34,8 +34,12 @@ export function sanityCheckProgram(program) {
  LogicSig cannot sign transactions in all cases.  Instead, use LogicSigAccount as a safe, general purpose signing mechanism.  Since LogicSig does not track the provided signature's public key, LogicSig cannot sign transactions when delegated to a non-multisig account _and_ the sender is not the delegating account.
  */
 export class LogicSig {
+    tag = Buffer.from('Program');
+    logic;
+    args;
+    sig;
+    msig;
     constructor(program, programArgs) {
-        this.tag = Buffer.from('Program');
         if (programArgs &&
             (!Array.isArray(programArgs) ||
                 !programArgs.every((arg) => arg.constructor === Uint8Array || Buffer.isBuffer(arg)))) {
@@ -172,6 +176,8 @@ export class LogicSig {
  * Represents an account that can sign with a LogicSig program.
  */
 export class LogicSigAccount {
+    lsig;
+    sigkey;
     /**
      * Create a new LogicSigAccount. By default this will create an escrow
      * LogicSig account. Call `sign` or `signMultisig` on the newly created

@@ -49,6 +49,7 @@ exports.setSimulateTransactionsHeaders = setSimulateTransactionsHeaders;
  * Simulates signed txns.
  */
 class SimulateRawTransactions extends jsonrequest_1.default {
+    requestBytes;
     constructor(c, request) {
         super(c);
         this.query.format = 'msgpack';

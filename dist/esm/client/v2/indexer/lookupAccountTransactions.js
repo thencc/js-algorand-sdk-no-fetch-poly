@@ -12,6 +12,7 @@ export function base64StringFunnel(data) {
     return Buffer.from(data).toString('base64');
 }
 export default class LookupAccountTransactions extends JSONRequest {
+    account;
     /**
      * Returns transactions relating to the given account.
      *

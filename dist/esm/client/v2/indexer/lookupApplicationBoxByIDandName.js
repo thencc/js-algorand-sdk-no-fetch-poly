@@ -2,6 +2,7 @@ import { Buffer } from 'buffer';
 import JSONRequest from '../jsonrequest';
 import { Box } from './models/types';
 export default class LookupApplicationBoxByIDandName extends JSONRequest {
+    index;
     /**
      * Returns information about indexed application boxes.
      *

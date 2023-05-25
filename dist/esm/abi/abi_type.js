@@ -93,6 +93,7 @@ export class ABIType {
     }
 }
 export class ABIUintType extends ABIType {
+    bitSize;
     constructor(size) {
         super();
         if (size % 8 !== 0 || size < 8 || size > 512) {
@@ -132,6 +133,8 @@ export class ABIUintType extends ABIType {
     }
 }
 export class ABIUfixedType extends ABIType {
+    bitSize;
+    precision;
     constructor(size, denominator) {
         super();
         if (size % 8 !== 0 || size < 8 || size > 512) {
@@ -317,6 +320,8 @@ export class ABIStringType extends ABIType {
     }
 }
 export class ABIArrayStaticType extends ABIType {
+    childType;
+    staticLength;
     constructor(argType, arrayLength) {
         super();
         if (arrayLength < 0) {
@@ -361,6 +366,7 @@ export class ABIArrayStaticType extends ABIType {
     }
 }
 export class ABIArrayDynamicType extends ABIType {
+    childType;
     constructor(argType) {
         super();
         this.childType = argType;
@@ -399,6 +405,7 @@ export class ABIArrayDynamicType extends ABIType {
     }
 }
 export class ABITupleType extends ABIType {
+    childTypes;
     constructor(argTypes) {
         super();
         if (argTypes.length >= MAX_LEN) {

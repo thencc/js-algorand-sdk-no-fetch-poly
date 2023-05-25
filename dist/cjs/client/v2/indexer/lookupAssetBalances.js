@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 class LookupAssetBalances extends jsonrequest_1.default {
+    index;
     /**
      * Returns the list of accounts which hold the given asset and their balance.
      *

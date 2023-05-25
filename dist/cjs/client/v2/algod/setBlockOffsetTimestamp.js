@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonrequest_1 = __importDefault(require("../jsonrequest"));
 class SetBlockOffsetTimestamp extends jsonrequest_1.default {
+    offset;
     constructor(c, intDecoding, offset) {
         super(c, intDecoding);
         this.offset = offset;

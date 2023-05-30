@@ -27,15 +27,13 @@ exports.URLTokenBaseHTTPClient = void 0;
 const buffer_1 = require("buffer");
 // import { fetch, Response, Headers } from 'cross-fetch';
 // import { fetch as cfetch } from 'cross-fetch';
-console.log('global.fetch', global.fetch);
+// console.log('global.fetch', global.fetch);
 if (!global.fetch) {
-    // const cfe =
     Promise.resolve().then(() => __importStar(require('cross-fetch'))).then((c) => {
-        console.log('cf import', c);
-        console.log('c.fetch', c.fetch);
+        // console.log('cf import', c);
+        // console.log('c.fetch', c.fetch);
         global.fetch = c.fetch;
     });
-    // global.fetch = cfetch;
 }
 class URLTokenBaseHTTPError extends Error {
     response;

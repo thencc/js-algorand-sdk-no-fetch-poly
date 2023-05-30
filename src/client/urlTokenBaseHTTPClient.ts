@@ -9,15 +9,13 @@ import {
 // import { fetch, Response, Headers } from 'cross-fetch';
 // import { fetch as cfetch } from 'cross-fetch';
 
-console.log('global.fetch', global.fetch);
+// console.log('global.fetch', global.fetch);
 if (!global.fetch) {
-  // const cfe =
   import('cross-fetch').then((c) => {
-    console.log('cf import', c);
-    console.log('c.fetch', c.fetch);
+    // console.log('cf import', c);
+    // console.log('c.fetch', c.fetch);
     global.fetch = c.fetch;
   });
-  // global.fetch = cfetch;
 }
 
 export interface AlgodTokenHeader {

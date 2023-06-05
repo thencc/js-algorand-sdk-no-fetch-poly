@@ -1,0 +1,13 @@
+import JSONRequest from '../jsonrequest';
+export default class GetLedgerStateDelta extends JSONRequest {
+    constructor(c, intDecoding, round) {
+        super(c, intDecoding);
+        this.round = round;
+        this.round = round;
+    }
+    // eslint-disable-next-line class-methods-use-this
+    path() {
+        return `/v2/deltas/${this.round}`;
+    }
+}
+//# sourceMappingURL=getLedgerStateDelta.js.map

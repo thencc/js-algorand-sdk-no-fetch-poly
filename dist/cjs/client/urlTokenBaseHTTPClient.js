@@ -111,7 +111,7 @@ class URLTokenBaseHTTPClient {
             ...requestHeaders,
         };
         const res = await (0, cross_fetch_1.fetch)(this.getURL(relativePath, query), {
-            mode: 'cors',
+            // mode: 'cors',
             headers,
         });
         return URLTokenBaseHTTPClient.formatFetchResponse(res);
@@ -125,7 +125,7 @@ class URLTokenBaseHTTPClient {
         };
         const res = await (0, cross_fetch_1.fetch)(this.getURL(relativePath, query), {
             method: 'POST',
-            mode: 'cors',
+            // mode: 'cors',
             body: data,
             headers,
         });
@@ -140,7 +140,7 @@ class URLTokenBaseHTTPClient {
         };
         const res = await (0, cross_fetch_1.fetch)(this.getURL(relativePath, query), {
             method: 'DELETE',
-            mode: 'cors',
+            // mode: 'cors',
             body: data,
             headers,
         });
